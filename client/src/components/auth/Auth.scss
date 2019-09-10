@@ -1,5 +1,4 @@
 @import "../../styles/base.scss";
-
 .base-wrapper {
   display: flex;
   flex-direction: column;
@@ -12,7 +11,6 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-
 .auth-header {
   color: $black;
   background-color: $white;
@@ -22,7 +20,6 @@
   margin-bottom: 1rem;
   font-weight: $medium;
 }
-
 .demo {
   font-size: 14px;
   margin-top: -0.25rem;
@@ -30,27 +27,22 @@
   width: 300px;
   line-height: 1.25rem;
 }
-
 .code-mail {
   font-family: $code;
-
   &:hover {
     cursor: pointer;
     color: $primaryBlue;
   }
 }
-
 .auth-form {
   width: 480px;
   background-color: $white;
   border: 1px solid $gray;
   padding: 2rem;
 }
-
 .auth-group {
   margin-bottom: 1rem;
 }
-
 .auth-label {
   width: 100%;
   padding-right: 2rem;
@@ -59,7 +51,6 @@
   color: $darkGray;
   font-family: $code;
 }
-
 .auth-input {
   background-color: $lighterGray;
   border: 1px solid $lighterGray;
@@ -71,25 +62,21 @@
   transition: all 0.25s ease 0s;
   font-size: 16px;
   padding: 0 1rem;
-
   &:hover {
     border-color: $gray;
     transition: all 0.25s ease 0s;
   }
-
   &:focus {
     border-color: $primaryBlue;
     transition: all 0.25s ease 0s;
   }
 }
-
 .auth-error {
   margin-top: 0.5rem;
   color: $red;
   font-family: $code;
   font-size: 14px;
 }
-
 .auth-button {
   height: 40px;
   margin-top: 1rem;
@@ -101,7 +88,6 @@
   font-size: 16px;
   font-family: $code;
   transition: all 0.25s ease 0s;
-
   &:hover {
     background-color: $hoverBlue;
     border-color: $hoverBlue;
@@ -110,13 +96,11 @@
     transition: all 0.25s ease 0s;
   }
 }
-
 .bottom-group {
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
 }
-
 .link {
   background-color: $lighterGray;
   color: $darkGray;
@@ -124,33 +108,27 @@
   font-family: $code;
   transition: all 0.25s ease 0s;
   padding: 0.25rem;
-
   &:hover {
     color: $primaryBlue;
     transform: translateY(-2.5px);
     transition: all 0.25s ease 0s;
   }
 }
-
 @media (max-width: 800px) {
   .bottom-group {
     flex-direction: column;
     padding-left: 0px;
   }
-
   .link {
     margin: 0.25rem 0;
   }
-
   .auth-form {
     width: 80%;
   }
-
   .bottom-group {
     text-align: center;
   }
 }
-
 @media (max-width: 550px) {
   .base-wrapper {
     background-size: cover;

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {
   CREATE_TASK,
   UPDATE_TASK,
@@ -7,7 +6,6 @@ import {
   GET_TASKS,
   TASKS_LOADING
 } from "./types";
-
 // Create Task
 export const createTask = taskData => dispatch => {
   axios
@@ -20,7 +18,6 @@ export const createTask = taskData => dispatch => {
     )
     .catch(err => console.log(err));
 };
-
 // Get tasks by project id
 export const getTasks = id => dispatch => {
   dispatch(setTasksLoading());
@@ -39,7 +36,6 @@ export const getTasks = id => dispatch => {
       })
     );
 };
-
 // Delete Task
 export const deleteTask = id => dispatch => {
   axios
@@ -52,7 +48,6 @@ export const deleteTask = id => dispatch => {
     )
     .catch(err => console.log(err));
 };
-
 // Update Task
 export const updateTask = taskData => dispatch => {
   axios
@@ -65,7 +60,6 @@ export const updateTask = taskData => dispatch => {
     )
     .catch(err => console.log(err));
 };
-
 // Tasks loading
 export const setTasksLoading = () => {
   return {

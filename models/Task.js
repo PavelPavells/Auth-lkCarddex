@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
 // Create Schema
 const TaskSchema = new Schema({
   project: {
@@ -23,5 +22,4 @@ const TaskSchema = new Schema({
     default: Date.now
   }
 });
-
 module.exports = Task = mongoose.model("tasks", TaskSchema);

@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {
   CREATE_PROJECT,
   UPDATE_PROJECT,
@@ -9,7 +8,6 @@ import {
   GET_PROJECTS,
   PROJECTS_LOADING
 } from "./types";
-
 // Create Project
 export const createProject = projectData => dispatch => {
   axios
@@ -22,7 +20,6 @@ export const createProject = projectData => dispatch => {
     )
     .catch(err => console.log(err));
 };
-
 // Update Project
 export const updateProject = projectData => dispatch => {
   axios
@@ -35,7 +32,6 @@ export const updateProject = projectData => dispatch => {
     )
     .catch(err => console.log(err));
 };
-
 // Delete Project
 export const deleteProject = (id, history) => dispatch => {
   axios
@@ -49,7 +45,6 @@ export const deleteProject = (id, history) => dispatch => {
     .then(res => history.push("/dashboard"))
     .catch(err => console.log(err));
 };
-
 // Get specific project by id
 export const getProject = id => dispatch => {
   dispatch(setProjectLoading());
@@ -68,7 +63,6 @@ export const getProject = id => dispatch => {
       })
     );
 };
-
 // Get all projects for specific user
 export const getProjects = () => dispatch => {
   dispatch(setProjectsLoading());
@@ -87,17 +81,15 @@ export const getProjects = () => dispatch => {
       })
     );
 };
-
 // Project loading
 export const setProjectLoading = () => {
   return {
     type: PROJECT_LOADING
   };
 };
-
 // Projects loading
 export const setProjectsLoading = () => {
   return {
     type: PROJECTS_LOADING
-  };
+  }
 };

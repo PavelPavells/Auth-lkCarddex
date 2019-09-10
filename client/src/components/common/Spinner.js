@@ -1,9 +1,6 @@
 import React from "react";
-
 import spinner from "../../img/spinner.gif";
-
 import "./Spinner.scss";
-
 const Spinner = () => {
   return (
     <div className="spinner">
@@ -11,5 +8,4 @@ const Spinner = () => {
     </div>
   );
 };
-
 export default Spinner;

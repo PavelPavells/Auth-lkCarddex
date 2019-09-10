@@ -5,12 +5,10 @@ import {
   GET_TASKS,
   TASKS_LOADING
 } from "../actions/types";
-
 const initialState = {
   tasks: [],
   tasksLoading: false
 };
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case CREATE_TASK:
@@ -28,9 +26,7 @@ export default function(state = initialState, action) {
       let index = state.tasks.findIndex(
         task => task._id === action.payload._id
       );
-
       state.tasks.splice(index, 1);
-
       return {
         ...state,
         tasks: [action.payload, ...state.tasks]

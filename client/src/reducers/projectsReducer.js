@@ -7,14 +7,12 @@ import {
   GET_PROJECTS,
   PROJECTS_LOADING
 } from "../actions/types";
-
 const initialState = {
   projects: [],
   project: [],
   projectLoading: false,
   projectsLoading: false
 };
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case CREATE_PROJECT:
@@ -26,9 +24,7 @@ export default function(state = initialState, action) {
       let index = state.projects.findIndex(
         project => project._id === action.payload._id
       );
-
       state.projects.splice(index, 1);
-
       return {
         ...state,
         projects: [action.payload, ...state.projects]
