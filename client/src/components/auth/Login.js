@@ -50,16 +50,16 @@ class Login extends Component {
     const { errors } = this.state;
     return (
       <div className="wrapper">
-         <div className="header">LOGO</div>
-         <div className="base-wrapper">
-       {/*<div className="auth-header">Sign In</div>*/}
-            <form className="auth-form" noValidate onSubmit={this.onSubmit}>
-              <div className="auth-group">
+        <div className="header">LOGO</div>
+        <div className="base-wrapper">
+          {/*<div className="auth-header">Sign In</div>*/}
+          <form className="auth-form" noValidate onSubmit={this.onSubmit}>
+            <div className="auth-group">
               <div className="bottom-group">
                 <Link to="/register" className="link">
                   Sign up
                 </Link>
-                </div>
+              </div>
               <label>
                 <div className="auth-label">Email address</div>
                 <input
@@ -99,12 +99,18 @@ class Login extends Component {
               </button>
             </div>
           </form>
-          <div className="main-paragraph">HELLO TEXT HELLO TEXT</div>
+          <div className="main-paragraph">
+            <h1>Lorem ipsum dolor sit amet</h1>
+            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
+            <p>
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
         </div>
         <div className="footer">
-          <a href="https://yandex.ru">link1</a>
-          <a href="https://yandex.ru">link2</a>
-          <a href="https://yandex.ru">link3</a>
+          <a href="https://yandex.ru">About</a>
+          <a href="https://yandex.ru">Contacts Us</a>
+          <a href="https://yandex.ru">Help</a>
         </div>
       </div>
     );

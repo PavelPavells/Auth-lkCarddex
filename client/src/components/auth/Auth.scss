@@ -17,31 +17,24 @@
   align-items: center;
   justify-content: center;
   height: 82vh;
-  width: 80%;
+  width: 100%;
   background: $white;
-  //background-image: url(https://images.unsplash.com/photo-1438804507856-d05d2d17e5b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
-  //background-repeat: no-repeat;
-  //background-size: contain;
 }
-//.auth-header {
-//  color: $black;
-//  background-color: $white;
-//  padding: 1rem;
-//  font-size: 20px;
-//  text-align: center;
-//  margin-bottom: 1rem;
-//  font-weight: $medium; 
-//}
 .main-paragraph {
-   display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-self: flex-start;
+  margin-top: 10vh;
+  margin-left: 2em;
 }
-.demo {
-  font-size: 14px;
-  margin-top: -0.25rem;
-  text-align: center;
-  width: 300px;
-  line-height: 1.25rem;
-}
+//.demo {
+//  font-size: 14px;
+//  margin-top: -0.25rem;
+//  text-align: center;
+//  width: 300px;
+//  line-height: 1.25rem;
+//}
 .code-mail {
   font-family: $code;
   &:hover {
@@ -120,12 +113,14 @@
 .footer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
   border-top: 1px solid lightgrey;
-  font-size: 20px;
-  height: 10vh;
+  font-size: 15px;
+  height: 12vh;
+}
+.footer a {
+  margin-right: 3em;
 }
 .link {
   background-color: $lighterGray;
@@ -133,9 +128,9 @@
   text-decoration: none;
   font-family: $code;
   transition: all 0.25s ease 0s;
-  padding: 0.4rem;
   border: 1px solid lightgray;
-  border-radius: 2px;
+ // border-radius: 2px;
+ margin-right: 2em;
   font-size: 20px;
   &:hover {
     color: $primaryBlue;

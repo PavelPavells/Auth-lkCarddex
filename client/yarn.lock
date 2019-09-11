@@ -1429,6 +1429,21 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+angular-mocks@~1.4.7:
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/angular-mocks/-/angular-mocks-1.4.14.tgz#ea12ec70a5227697e79575523abbec0e0f9168a7"
+  integrity sha1-6hLscKUidpfnlXVSOrvsDg+RaKc=
+
+angular-route@~1.4.7:
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.4.14.tgz#2e5dbfe1239423c678165c39bb38601ad66a0794"
+  integrity sha1-Ll2/4SOUI8Z4Flw5uzhgGtZqB5Q=
+
+angular@~1.4.7:
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.4.14.tgz#9d0feaf60ce6e52ce50f49ee328656d1e1875c37"
+  integrity sha1-nQ/q9gzm5SzlD0nuMoZW0eGHXDc=
+
 ansi-colors@^3.0.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.1.tgz#9638047e4213f3428a11944a7d4b31cba0a3ff95"
@@ -2427,6 +2442,11 @@ caniuse-lite@^1.0.30000918, caniuse-lite@^1.0.30000929, caniuse-lite@^1.0.300009
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000989.tgz#b9193e293ccf7e4426c5245134b8f2a56c0ac4b9"
   integrity sha512-vrMcvSuMz16YY6GSVZ0dWDTJP8jqk3iFQ/Aq5iqblPwxSVVZI+zxDyTX0VPqtQsDnfdrBDcsmhgTEOh5R8Lbpw==
 
+capitalize@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/capitalize/-/capitalize-0.5.0.tgz#efa007343183ef12aff360cc84925064b5cc778b"
+  integrity sha1-76AHNDGD7xKv82DMhJJQZLXMd4s=
+
 capture-exit@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/capture-exit/-/capture-exit-1.2.0.tgz#1c5fcc489fd0ab00d4f1ac7ae1072e3173fbab6f"
@@ -2561,6 +2581,11 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
+
+click-off@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/click-off/-/click-off-0.2.1.tgz#9c7a47a9ca8cf73d066caa1b2e405594b42e34a7"
+  integrity sha1-nHpHqcqM9z0GbKobLkBVlLQuNKc=
 
 cliui@^3.2.0:
   version "3.2.0"
@@ -3576,6 +3601,13 @@ electron-to-chromium@^1.3.82:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.84.tgz#2e55df59e818f150a9f61b53471ebf4f0feecc65"
   integrity sha512-IYhbzJYOopiTaNWMBp7RjbecUBsbnbDneOP86f3qvS0G0xfzwNSvMJpTrvi5/Y1gU7tg2NAgeg8a8rCYvW9Whw==
 
+element-class@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/element-class/-/element-class-0.1.1.tgz#890f57bc0e1365d3794316518db121c859d15e4f"
+  integrity sha1-iQ9XvA4TZdN5QxZRjbEhyFnRXk8=
+  dependencies:
+    inherits "~1.0.0"
+
 elliptic@^6.0.0:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.4.1.tgz#c2d0b7776911b86722c632c3c06c60f2f819939a"
@@ -3684,6 +3716,11 @@ escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
+
+escape-stack@~0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/escape-stack/-/escape-stack-0.1.2.tgz#da4c7e60ff9fecefa40172fa02acc6d6ac0ec267"
+  integrity sha1-2kx+YP+f7O+kAXL6AqzG1qwOwmc=
 
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -4638,6 +4675,22 @@ graceful-fs@^4.1.15:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
   integrity sha512-IItsdsea19BoLC7ELy13q1iJFNmd7ofZH5+X/pJr90/nRoPEX0DJo1dHDbgtYWOhJhcCgMDTOw84RZ72q6lB+Q==
 
+grid@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/grid/-/grid-3.3.7.tgz#491a9f03acbc1e76c706588f70264b0fed09db70"
+  integrity sha1-SRqfA6y8HnbHBliPcCZLD+0J23A=
+  dependencies:
+    angular "~1.4.7"
+    angular-mocks "~1.4.7"
+    angular-route "~1.4.7"
+    capitalize "^0.5.0"
+    click-off "~0.2.1"
+    element-class "^0.1.1"
+    escape-stack "~0.1.2"
+    inner-text-shim "~1.0.1"
+    key "^0.1.11"
+    time-now "~0.2.1"
+
 growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
@@ -5119,6 +5172,11 @@ inherits@2.0.1:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
   integrity sha1-sX0I0ya0Qj5Wjv9xn5GwscvfafE=
 
+inherits@~1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/inherits/-/inherits-1.0.2.tgz#ca4309dadee6b54cc0b8d247e8d7c7a0975bdc9b"
+  integrity sha1-ykMJ2t7mtUzAuNJH6NfHoJdb3Js=
+
 inherits@~2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
@@ -5128,6 +5186,11 @@ ini@^1.3.5, ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+
+inner-text-shim@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/inner-text-shim/-/inner-text-shim-1.0.1.tgz#33c5fef1ef5822fbddd074f6cb8f5bfecf9befc3"
+  integrity sha1-M8X+8e9YIvvd0HT2y49b/s+b78M=
 
 inquirer@6.2.1:
   version "6.2.1"
@@ -6165,6 +6228,11 @@ jwt-decode@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
   integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
+
+key@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/key/-/key-0.1.11.tgz#66024f2e2daaa4fabe049b26d74c47220551cfd9"
+  integrity sha1-ZgJPLi2qpPq+BJsm10xHIgVRz9k=
 
 killable@^1.0.0:
   version "1.0.1"
@@ -10065,6 +10133,11 @@ thunky@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.3.tgz#f5df732453407b09191dae73e2a8cc73f381a826"
   integrity sha512-YwT8pjmNcAXBZqrubu22P4FYsh2D4dxRmnWBOL8Jk8bUcRUtc5326kx32tuTmFDAZtLOGEVNl8POAR8j896Iow==
+
+time-now@~0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/time-now/-/time-now-0.2.1.tgz#acc8ad3202f259a9f2791a3473957d51544ac384"
+  integrity sha1-rMitMgLyWanyeRo0c5V9UVRKw4Q=
 
 timers-browserify@^2.0.4:
   version "2.0.10"
