@@ -49,54 +49,63 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="base-wrapper">
-        <div className="auth-header">Sign In</div>
-        <form className="auth-form" noValidate onSubmit={this.onSubmit}>
-          <div className="auth-group">
-            <label>
-              <div className="auth-label">Email address</div>
-              <input
-                onChange={this.onChange}
-                value={this.state.email}
-                error={errors.email}
-                id="email"
-                type="email"
-                className="auth-input"
-              />
-              <div className="auth-error">
-                {errors.email}
-                {errors.emailnotfound}
-              </div>
-            </label>
-          </div>
-          <div className="auth-group">
-            <label>
-              <div className="auth-label">Password</div>
-              <input
-                onChange={this.onChange}
-                value={this.state.password}
-                error={errors.password}
-                id="password"
-                type="password"
-                className="auth-input"
-              />
-              <div className="auth-error">
-                {errors.password}
-                {errors.passwordincorrect}
-              </div>
-            </label>
-          </div>
-          <div>
-            <button type="submit" className="auth-button">
-              Login
-            </button>
-          </div>
-          <div className="bottom-group">
-            <Link to="/register" className="link">
-              Sign up
-            </Link>
-          </div>
-        </form>
+      <div className="wrapper">
+         <div className="header">LOGO</div>
+         <div className="base-wrapper">
+       {/*<div className="auth-header">Sign In</div>*/}
+            <form className="auth-form" noValidate onSubmit={this.onSubmit}>
+              <div className="auth-group">
+              <div className="bottom-group">
+                <Link to="/register" className="link">
+                  Sign up
+                </Link>
+                </div>
+              <label>
+                <div className="auth-label">Email address</div>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.email}
+                  error={errors.email}
+                  id="email"
+                  type="email"
+                  className="auth-input"
+                />
+                <div className="auth-error">
+                  {errors.email}
+                  {errors.emailnotfound}
+                </div>
+              </label>
+            </div>
+            <div className="auth-group">
+              <label>
+                <div className="auth-label">Password</div>
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
+                  id="password"
+                  type="password"
+                  className="auth-input"
+                />
+                <div className="auth-error">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                </div>
+              </label>
+            </div>
+            <div>
+              <button type="submit" className="auth-button">
+                Login
+              </button>
+            </div>
+          </form>
+          <div className="main-paragraph">HELLO TEXT HELLO TEXT</div>
+        </div>
+        <div className="footer">
+          <a href="https://yandex.ru">link1</a>
+          <a href="https://yandex.ru">link2</a>
+          <a href="https://yandex.ru">link3</a>
+        </div>
       </div>
     );
   }

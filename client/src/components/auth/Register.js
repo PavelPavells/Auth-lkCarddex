@@ -42,10 +42,16 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
+      <div className="wrapper">
+      <div className="header">LOGO</div>
       <div className="base-wrapper">
-        <div className="auth-header">Register Below</div>
+        {/*<div className="auth-header">Register</div>*/}
         <form className="auth-form" noValidate onSubmit={this.onSubmit}>
+          <Link to="/" className="link">
+              Sign in
+          </Link>
           <div className="auth-group">
+          <div className="bottom-group">
             <label>
               <div className="auth-label">Name</div>
               <input
@@ -92,12 +98,14 @@ class Register extends Component {
               Sign up
             </button>
           </div>
-          <div className="bottom-group">
-            <Link to="/" className="link">
-              Sign in
-            </Link>
           </div>
         </form>
+      </div>
+      <div className="footer">
+        <a href="https://yandex.ru">link1</a>
+        <a href="https://yandex.ru">link2</a>
+        <a href="https://yandex.ru">link3</a>
+      </div>
       </div>
     );
   }
