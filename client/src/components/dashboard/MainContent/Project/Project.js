@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProject } from "../../../../actions/projectsActions";
 import { getTasks, deleteTask } from "../../../../actions/taskActions";
-
 import Spinner from "../../../common/Spinner";
 import Modal from "../Modal/Modal";
-
 import "../MainContent.scss";
 import "./Project.scss";
-
 class Project extends Component {
   state = {
     modal: false,
@@ -26,7 +23,6 @@ class Project extends Component {
     taskId: "",
     dateDue: ""
   };
-
   toggleModal = e => {
     this.setState({
       modal: !this.state.modal,
@@ -35,7 +31,6 @@ class Project extends Component {
       editTask: false
     });
   };
-
   toggleEditModal = (name, members, id, owner, e) => {
     this.setState({
       modal: !this.state.modal,
@@ -46,14 +41,12 @@ class Project extends Component {
       owner: owner
     });
   };
-
   toggleTaskModal = e => {
     this.setState({
       modal: !this.state.modal,
       task: !this.state.task
     });
   };
-
   toggleEditTaskModal = (taskName, assignee, dateDue, id, e) => {
     this.setState({
       modal: !this.state.modal,
@@ -64,36 +57,27 @@ class Project extends Component {
       dateDue: dateDue
     });
   };
-
   componentDidMount() {
     this.props.getProject(this.props.match.params.project);
     this.props.getTasks(this.props.match.params.project);
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.match.params.project !== prevProps.match.params.project) {
       this.props.getProject(this.props.match.params.project);
       this.props.getTasks(this.props.match.params.project);
     }
   }
-
   onChange = async e => {
     await this.setState({ tasks: this.props.tasks.tasks });
-
     let tasks = await [...this.state.tasks];
-
     tasks[e.target.id].taskName = await e.target.value;
-
     await this.setState({ tasks });
   };
-
   deleteTask = id => {
     this.props.deleteTask(id);
   };
-
   render() {
     const { tasks } = this.props.tasks;
-
     let tasksList = tasks.map((task, index) => (
       <div className="task-input" key={task._id}>
         <i
@@ -146,7 +130,6 @@ class Project extends Component {
         </span>
       </div>
     ));
-
     if (
       this.props.project &&
       this.props.project.teamMembers &&
@@ -154,7 +137,6 @@ class Project extends Component {
       !this.props.tasks.tasksLoading
     ) {
       const { project } = this.props;
-
       return (
         <div className="main-content">
           <h1 className="project-header">{project.name}</h1>
@@ -170,7 +152,6 @@ class Project extends Component {
           >
             Edit Project Info
           </button>
-
           <div className="modal-wrapper">
             <Modal
               onClose={this.toggleModal}
@@ -206,7 +187,6 @@ class Project extends Component {
         </div>
       );
     }
-
     return (
       <div className="project-spinner">
         <Spinner />
@@ -214,14 +194,12 @@ class Project extends Component {
     );
   }
 }
-
 const mapStateToProps = state => ({
   auth: state.auth,
   project: state.projects.project,
   projects: state.projects,
   tasks: state.tasks
 });
-
 export default connect(
   mapStateToProps,
   { getProject, getTasks, deleteTask }
