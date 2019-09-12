@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./MainContent.scss";
 import "./Dashboard.scss";
-
 import { connect } from "react-redux";
-
 import Modal from "./Modal/Modal";
-
 class Dashboard extends Component {
   state = {
     modal: false,
@@ -15,14 +12,11 @@ class Dashboard extends Component {
     id: "",
     owner: {}
   };
-
   toggleModal = e => {
     this.setState({ modal: !this.state.modal, edit: false });
   };
-
   toggleEditModal = (name, members, id, owner, e) => {
     e.stopPropagation();
-
     this.setState({
       modal: !this.state.modal,
       edit: !this.state.edit,
@@ -32,12 +26,9 @@ class Dashboard extends Component {
       owner: owner
     });
   };
-
   render() {
     const { projects } = this.props.projects;
-
     let content;
-
     let projectData = projects.sort().map(project => (
       <div
         key={project._id}
@@ -55,9 +46,9 @@ class Dashboard extends Component {
             project.owner
           )}
         >
-          Edit project
+          Edit Task
         </div>
-        <div className="project-info-button">Go to project</div>
+        <div className="project-info-button">Go to Task</div>
       </div>
     ));
 
@@ -66,7 +57,7 @@ class Dashboard extends Component {
       content = (
         <>
           <button className="main-btn" onClick={this.toggleModal}>
-            Create another project
+            Create Another Task
           </button>
           <div className="modal-wrapper">
             <Modal
@@ -88,9 +79,9 @@ class Dashboard extends Component {
         <>
           <div className="projects">
             <div className="no-projects">
-              <h1 className="header">You have no projects</h1>
+              <h1 className="header">You have no Tasks</h1>
               <button className="main-btn" onClick={this.toggleModal}>
-                Create your first project
+                Create Your First Task
               </button>
               <div className="modal-wrapper">
                 <Modal onClose={this.toggleModal} modal={this.state.modal} />
@@ -100,20 +91,17 @@ class Dashboard extends Component {
         </>
       );
     }
-
     return (
       <div className="main-content">
-        <h1 className="header">Your Projects</h1>
+        <h1 className="header">Your Tasks</h1>
         {content}
       </div>
     );
   }
 }
-
 const mapStateToProps = state => ({
   projects: state.projects
 });
-
 export default connect(
   mapStateToProps,
   {}

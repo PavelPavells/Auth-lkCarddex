@@ -16,7 +16,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 82vh;
+  height: 87vh;
  // width: 100%;
   //background: $white;
 }
@@ -108,7 +108,7 @@
 .bottom-group {
   //display: flex;
   //justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .footer {
   display: flex;
@@ -117,22 +117,28 @@
   align-items: center;
   border-top: 1px solid lightgrey;
   font-size: 15px;
-  height: 12vh;
+  height: 8vh;
 }
 .footer a {
-  margin-right: 3em;
+  margin-left: 3em;
 }
 .link {
-  background-color: $lighterGray;
+  //background-color: $lighterGray;
   color: $darkGray;
   text-decoration: none;
   font-family: $code;
   transition: all 0.25s ease 0s;
-  border: 3px solid lightgray;
+  //border: 3px solid lightgray;
  // border-radius: 2px;
   padding: 0 10px;
   //margin-right: 2em;
   font-size: 20px;
+  border-bottom: 1.5px solid $primaryBlue;
+  // border-radius: 2px;
+  margin-right: 1em;
+  font-size: 15px;
+  padding: 3px;
+  //line-height: 5px;
   &:hover {
     color: $primaryBlue;
     transform: translateY(-2.5px);
