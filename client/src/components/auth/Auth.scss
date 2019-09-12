@@ -108,7 +108,7 @@
 .bottom-group {
   //display: flex;
   //justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .footer {
   display: flex;
@@ -123,15 +123,17 @@
   margin-left: 3em;
 }
 .link {
-  background-color: $lighterGray;
+  //background-color: $lighterGray;
   color: $darkGray;
   text-decoration: none;
   font-family: $code;
   transition: all 0.25s ease 0s;
-  border: 1px solid lightgray;
- // border-radius: 2px;
- margin-right: 2em;
-  font-size: 20px;
+  border-bottom: 1.5px solid $primaryBlue;
+  // border-radius: 2px;
+  margin-right: 1em;
+  font-size: 15px;
+  padding: 3px;
+  //line-height: 5px;
   &:hover {
     color: $primaryBlue;
     transform: translateY(-2.5px);

@@ -43,17 +43,20 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div className="wrapper">
-        <div className="header">LOGO</div>
+        <div className="header">ЛОГО</div>
         <div className="base-wrapper">
           {/*<div className="auth-header">Register</div>*/}
           <form className="auth-form" noValidate onSubmit={this.onSubmit}>
             <Link to="/" className="link">
-              Sign in
+              Вход
+            </Link>
+            <Link to="/" className="link">
+              Регистрация
             </Link>
             <div className="auth-group">
               <div className="bottom-group">
                 <label>
-                  <div className="auth-label">Name</div>
+                  <div className="auth-label">Имя</div>
                   <input
                     onChange={this.onChange}
                     value={this.state.name}
@@ -67,7 +70,7 @@ class Register extends Component {
               </div>
               <div className="auth-group">
                 <label>
-                  <div className="auth-label">Email address</div>
+                  <div className="auth-label">Email</div>
                   <input
                     onChange={this.onChange}
                     value={this.state.email}
@@ -81,7 +84,7 @@ class Register extends Component {
               </div>
               <div className="auth-group">
                 <label>
-                  <div className="auth-label">Password</div>
+                  <div className="auth-label">Пароль</div>
                   <input
                     onChange={this.onChange}
                     value={this.state.password}
@@ -95,7 +98,7 @@ class Register extends Component {
               </div>
               <div>
                 <button type="submit" className="auth-button">
-                  Sign up
+                  Зарегестрироваться
                 </button>
               </div>
             </div>
@@ -112,9 +115,9 @@ class Register extends Component {
           </div>
         </div>
         <div className="footer">
-          <a href="https://yandex.ru">About</a>
-          <a href="https://yandex.ru">Contacts Us</a>
-          <a href="https://yandex.ru">Help</a>
+          <a href="https://yandex.ru">О Нас</a>
+          <a href="https://yandex.ru">Связаться с нами</a>
+          <a href="https://yandex.ru">Помощь</a>
         </div>
       </div>
     );

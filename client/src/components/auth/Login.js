@@ -11,7 +11,7 @@ class Login extends Component {
       email: "",
       password: "",
       errors: {}
-    };
+    }; 
   }
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
@@ -50,18 +50,21 @@ class Login extends Component {
     const { errors } = this.state;
     return (
       <div className="wrapper">
-        <div className="header">LOGO</div>
+        <div className="header">ЛОГО</div>
         <div className="base-wrapper">
           {/*<div className="auth-header">Sign In</div>*/}
           <form className="auth-form" noValidate onSubmit={this.onSubmit}>
             <div className="auth-group">
               <div className="bottom-group">
                 <Link to="/register" className="link">
-                  Sign up
+                  Регистрация
+                </Link>
+                <Link to="/" className="link">
+                  Вход
                 </Link>
               </div>
               <label>
-                <div className="auth-label">Email address</div>
+                <div className="auth-label">Email</div>
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
@@ -78,7 +81,7 @@ class Login extends Component {
             </div>
             <div className="auth-group">
               <label>
-                <div className="auth-label">Password</div>
+                <div className="auth-label">Пароль</div>
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -95,7 +98,7 @@ class Login extends Component {
             </div>
             <div>
               <button type="submit" className="auth-button">
-                Login
+                Войти
               </button>
             </div>
           </form>
@@ -108,9 +111,9 @@ class Login extends Component {
           </div>
         </div>
         <div className="footer">
-          <a href="https://yandex.ru">About</a>
-          <a href="https://yandex.ru">Contacts Us</a>
-          <a href="https://yandex.ru">Help</a>
+          <a href="https://yandex.ru">О Нас</a>
+          <a href="https://yandex.ru">Связаться с нами</a>
+          <a href="https://yandex.ru">Помощь</a>
         </div>
       </div>
     );
