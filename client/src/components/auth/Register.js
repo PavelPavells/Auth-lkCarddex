@@ -10,6 +10,9 @@ class Register extends Component {
     this.state = {
       name: "",
       email: "",
+      companyName: "",
+      companyINN: "",
+      companyPhone: "",
       password: "",
       errors: {}
     };
@@ -35,6 +38,9 @@ class Register extends Component {
     const newUser = {
       name: this.state.name,
       email: this.state.email,
+      companyName: this.state.companyName,
+      companyINN: this.state.companyINN,
+      companyPhone: this.state.companyPhone,
       password: this.state.password
     };
     this.props.registerUser(newUser, this.props.history);
@@ -56,7 +62,7 @@ class Register extends Component {
             <div className="auth-group">
               <div className="bottom-group">
                 <label>
-                  <div className="auth-label">Имя</div>
+                  <div className="auth-label">Ф.И.О.</div>
                   <input
                     onChange={this.onChange}
                     value={this.state.name}
@@ -80,6 +86,48 @@ class Register extends Component {
                     className="auth-input"
                   />
                   <div className="auth-error">{errors.email}</div>
+                </label>
+              </div>
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Название компании</div>
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.companyName}
+                    error={errors.companyName}
+                    id="companyName"
+                    type="companyName"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">{errors.companyName}</div>
+                </label>
+              </div>
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">ИНН</div>
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.companyINN}
+                    error={errors.companyINN}
+                    id="companyINN"
+                    type="companyName"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">{errors.companyINN}</div>
+                </label>
+              </div>
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Телефон</div>
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.companyPhone}
+                    error={errors.companyPhone}
+                    id="companyPhone"
+                    type="companyName"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">{errors.companyPhone}</div>
                 </label>
               </div>
               <div className="auth-group">
@@ -134,5 +182,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { registerUser }
+  {registerUser}
 )(withRouter(Register));

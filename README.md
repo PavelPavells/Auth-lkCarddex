@@ -4,7 +4,9 @@
 Get up and running with a development server using the following commands
 ```javascript
 // Install all dependencies for client & server
-npm run full-install
+## npm or yarn install
+# yarn start (For Server)
+# cd ../client and yarn start (For Client)
 // Run client & development server with concurrently
 npm run dev
 // Assumes Node and npm are installed on machine

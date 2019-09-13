@@ -73,7 +73,7 @@ class Login extends Component {
                   type="email"
                   className="auth-input"
                 />
-                <div className="auth-error">
+                <div className="auth-error"> 
                   {errors.email}
                   {errors.emailnotfound}
                 </div>
