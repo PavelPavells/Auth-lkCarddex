@@ -1,47 +1,60 @@
+/** ********** IMPORT LIBRARIES ********** */
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
 import { Link, withRouter } from "react-router-dom";
+
+/** ********** IMPORT ACTIONS ********** */
+//import { logout } from "../../../actions/securityActions";
+
+/** ********** IMPORT STYLES ********** */
 import "./TopNav.scss";
+
 class TopNav extends Component {
-  state = {
-    dropdown: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      dropdown: false,
+      openContactUs: false
+    };
+  }
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClick, false);
   }
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClick, false);
   }
-  // Close dropdown when click outside
-  handleClick = e => {
-    if (this.state.dropdown && !this.node.contains(e.target)) {
-      this.setState({ dropdown: !this.state.dropdown });
-    }
-  };
   onLogoutClick = e => {
     e.preventDefault();
-    this.props.logoutUser(this.props.history);
     window.location.href = "/";
+    this.props.logoutUser();
   };
-  handleProfileClick = e => {
+  handleProfileClick = event => {
     this.setState({ dropdown: !this.state.dropdown });
+    //if (this.state.dropdown && !this.node.contains(event.target)) {
+    //  this.setState({ dropdown: !this.state.dropdown });
+    //}
+  };
+  handleContactClick = event => {
+    event.preventDefault();
+    this.setState({ openContactUs: !this.state.openContactUs });
+    //if (this.state.dropdown && !this.node.contains(event.target)) {
+    //  this.setState({ openContactUs: !this.state.openContactUs });
+    //}
   };
   // Show Side Nav
   toggleMenu = e => {
-    let sideNav = document.querySelector(".side");
-        sideNav.classList.remove("invisibile");
-    let hamburger = document.querySelector(".hamburger-top-menu");
-        hamburger.classList.remove("hamburger-visible");
-    let rightSide = document.querySelector(".right");
-        rightSide.classList.remove("no-side");
-    let rightSideRight = document.querySelector(".right-top");
-        rightSideRight.classList.remove("right-top-visibile");
+    e.preventDefault();
+    let sideNav = document.querySelector(".right");
+    sideNav.classList.toggle("invisible");
   };
   render() {
-    const { name, email } = this.props.auth.user;
+    //const { name } = this.props.auth.user; // {/*company_inn*/}
+    let partnerStatus = localStorage.getItem("partnerStatus");
+    let contragentName = localStorage.getItem("contragentName");
     return (
-      <nav className="top-nav" ref={node => (this.node = node)}>
+      <nav className="top-nav">
+        {/* ref={node => (this.node = node)} */}
         <div className="left-top">
           <i
             onClick={this.toggleMenu}
@@ -49,46 +62,79 @@ class TopNav extends Component {
           >
             menu
           </i>
-          <Link to="/dashboard">
-            <h1 className="brand-header">
-              LOGO {/*<span className="brand-header-sub">s</span>*/}
-            </h1>
-          </Link>
+          <div className="side-logo__carddex"></div>
         </div>
         <ul className="right-top">
-          <li>
+          <div className="top-nav__info">
+            Личный кабинет: <strong>{contragentName}</strong>
+          </div>
+          <div className="top-right__block">
+          <li className="notification-header">
+            <div></div>
+          </li>
+          <li className="email-header">
+            <div></div>
+          </li>
+          <li className="right-top__list">
             <div className="email">
-              <p>Signed in as {email}</p>
+              <p>
+                Вы вошли как <strong>{partnerStatus}</strong>
+              </p>
+            </div>
+            <div className="role">
+              <p>Администратор</p>
             </div>
           </li>
           <li>
             <div className="profile" onClick={this.handleProfileClick}>
-              <span>{name !== undefined && name.split("")[0]}</span>
+              {/*<span>{name !== undefined && name.split("")[0]}</span>*/}
             </div>
             {this.state.dropdown ? (
               <ul className="dropdown">
-                <p>Hello, {name !== undefined && name.split(" ")[0]}</p>
+                <p>Здравствуйте</p>
                 <Link to="/dashboard">
-                  <li>Home</li>
+                  <li>Главная</li>
                 </Link>
+                <Link to="/account">
+                  <li>Настройки</li>
+                </Link>
+                <li onClick={this.handleContactClick}>
+                  Связаться с нами
+                  {this.state.openContactUs ? (
+                    <div className="contact-us">
+                      <h3>Связаться с нами:</h3>
+                      <div className="contact-us__phone">
+                        Телефон: <span>8(800)333-93-36</span>
+                      </div>
+                      <div className="contact-us__email">
+                        E-mail: <span>sales@carddex.ru</span>
+                      </div>
+                    </div>
+                  ) : null}
+                </li>
                 {/*
                 <Link to="/tasks">
                   <li>My Tasks</li>
                 </Link>
                 */}
-                <li onClick={this.onLogoutClick}>Sign Out</li>
+                <li onClick={this.onLogoutClick}>Выйти</li>
               </ul>
             ) : null}
           </li>
+          </div>
         </ul>
       </nav>
     );
   }
 }
+TopNav.propTypes = {
+  data: PropTypes.object,
+  security: PropTypes.object.isRequired
+}
 const mapStateToProps = state => ({
-  auth: state.auth
+  security: state.security
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  null//{ logout }
 )(withRouter(TopNav));

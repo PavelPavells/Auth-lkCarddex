@@ -1,48 +1,79 @@
 @import "../../../styles/base.scss";
 .main-content {
-  flex: 1 1 auto;
-  margin-left: 2rem;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 auto 1;
+          flex: 0 auto 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   background-color: $white;
-  margin-top: 70px;
+  margin-left: 22em;
+  margin-top: 5.5em;
+  margin-bottom: 1em;
+  margin-right: 2em;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+  font-family: $code;
 }
 .header {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: $medium;
-  color: $black;
+  color: $brandPantonBlack;
+  font-weight: 500;
 }
 .projects {
-  width: 97.5%;
+  width: 100%;
   height: auto;
-  border: 1px solid $gray;
+  border: 1px solid $brandPantonGrey;
 }
 .no-projects {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
   height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 .main-btn {
   height: 40px;
   color: #ffffff;
   margin-top: 0.5rem;
-  background-color: $primaryBlue;
-  border-color: $primaryBlue;
+  background-color: $brandPantonRed;
+  border-color: $brandPantonRed;
   border-radius: 4px;
   font-size: 12px;
   font-family: $code;
+  -webkit-transition: all 0.25s ease 0s;
+  -o-transition: all 0.25s ease 0s;
   transition: all 0.25s ease 0s;
   padding: 0rem 1rem;
   min-width: 200px;
+  outline: 0;
   &:hover {
-    background-color: $hoverBlue;
-    border-color: $hoverBlue;
-    transform: translateY(-2.5px);
+    background-color: $brandPantonRed;
+    border-color: $brandPantonBlue;
+    -webkit-transform: translateY(-2.5px);
+        -ms-transform: translateY(-2.5px);
+            transform: translateY(-2.5px);
     cursor: pointer;
+    -webkit-transition: all 0.25s ease 0s;
+    -o-transition: all 0.25s ease 0s;
     transition: all 0.25s ease 0s;
   }
 }
 .split {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
