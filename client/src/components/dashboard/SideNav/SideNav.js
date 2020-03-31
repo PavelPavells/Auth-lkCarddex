@@ -1,111 +1,114 @@
+/** ********** IMPORT LIBRARIES ********** */
 import React, { Component } from "react";
-import { NavLink, withRouter } from "react-router-dom";    // ADD Link
+import PropTypes from 'prop-types';
+import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+
+/** ********** IMPORT STYLES ********** */
 import "./SideNav.scss";
+
 class SideNav extends Component {
   onLogoutClick = e => {
-    this.props.logoutUser(this.props.history);
+    //this.props.logoutUser(this.props.history);
     window.location.href = "/";
   };
-  // Hide Side Nav
-  toggleMenu = e => {
-    let sideNav = document.querySelector(".side");
-      sideNav.classList.add("invisibile");
-    let hamburger = document.querySelector(".hamburger-top-menu");
-      hamburger.classList.add("hamburger-visible");
-    let rightSide = document.querySelector(".right");
-      rightSide.classList.add("no-side");
-    let rightSideRight = document.querySelector(".right-top");
-      rightSideRight.classList.add("right-top-visibile");
-  };
   render() {
-    //const { projects } = this.props.projects;
-    //let projectData = projects.sort().map(project => (
-     // <li className="project-listing" key={project._id}>
-      //  <Link to={`/projects/${project._id}`}>{project.name}</Link>
-      //</li>
-    //));
     return (
       <nav className="side">
         <ul className="top">
-          <li>
-            <i
-              onClick={this.toggleMenu}
-              className="material-icons hamburger-side-menu"
-            >
-              menu
-            </i>
-          </li>
           <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Home
+            <li className="font">
+              <i className="side-logo__main icon"></i>
+              <span className="list-name">Главная</span>
+              <div className="font-block-hover">Главная</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/sales">
+            <li className="subparagraph">
+              <i className="side-logo__sales icon"></i>
+              <span className="list-name">История скидок</span>
+              <div className="font-block-hover">История скидок</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/payment">
+            <li className="subparagraph">
+              <i className="side-logo__main-payment icon"></i>
+              <span className="list-name">История платежей</span>
+              <div className="font-block-hover">История платежей</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/shipment">
+            <li className="subparagraph">
+              <i className="side-logo__main-shipment-story icon"></i>
+              <span className="list-name">История отгрузок</span>
+              <div className="font-block-hover">История отгрузок</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/price-list">
+            <li className="subparagraph">
+              <i className="side-logo__price-list icon"></i>
+              <span className="list-name">Прайс-лист</span>
+              <div className="font-block-hover">Прайс-лист</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/news">
+            <li className="font">
+              <i className="side-logo__news icon"></i>
+              <span className="list-name">Новости</span>
+              <div className="font-block-hover">Новости</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/news">
+            <li className="subparagraph">
+              <i className="side-logo__main-archive icon"></i>
+              <span className="list-name">Архив новостей</span>
+              <div className="font-block-hover">Архив новостей</div>
             </li>
           </NavLink>
-          <NavLink exact activeClassName="active-page" to="/dashboard">
-            <li>
-              <i className="material-icons icon">home</i>Something
+          <NavLink exact activeClassName="active-page" to="/control">
+            <li className="font">
+              <i className="side-logo__main-administration icon"></i>
+              <span className="list-name">Администрирование</span>
+              <div className="font-block-hover">Администрирование</div>
             </li>
           </NavLink>
-          {/*
-          <NavLink exact activeClassName="active-page" to="/tasks">
-            <li>
-              <i className="material-icons icon">check_circle</i>My Tasks
+          <NavLink exact activeClassName="active-page" to="/control">
+            <li className="subparagraph">
+              <i className="side-logo__main-users icon"></i>
+              <span className="list-name">Пользователи</span>
+              <div className="font-block-hover">Пользователи</div>
             </li>
           </NavLink>
-          */}
-          <div className="sign-out" onClick={this.onLogoutClick}>
-            <li>
-              <i className="material-icons icon">arrow_back</i>Sign Out
+          <NavLink exact activeClassName="active-page" to="/app">
+            <li className="subparagraph">
+              <i className="side-logo__main-app icon"></i>
+              <span className="list-name">WEB-приложения</span>
+              <div className="font-block-hover">WEB-приложения</div>
             </li>
-          </div>
+          </NavLink>
+          <NavLink exact activeClassName="active-page" to="/account">
+            <li className="font">
+              <i className="side-logo__main-account icon"></i>
+              <span className="list-name">Учетная запись</span>
+              <div className="font-block-hover">Учетная запись</div>
+            </li>
+          </NavLink>
         </ul>
-        {/*<ul className="bottom">
-          <li>
-            <h4 className="side-projects-header">Projects</h4>
-          </li>
-          <div className="project-listings">{projectData}</div>
-        </ul> */}
+        <h5 className="side-footer__copy">Copyright 2019 &copy; CARDDEX</h5>
       </nav>
     );
   }
 }
+SideNav.propTypes = {
+  security: PropTypes.object
+}
 const mapStateToProps = state => ({
   projects: state.projects
 });
+
 export default withRouter(
   connect(
-    mapStateToProps,
-    { logoutUser }
+    mapStateToProps, 
+    null                            //{ logoutUser }
   )(withRouter(SideNav))
 );

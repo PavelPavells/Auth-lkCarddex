@@ -1,134 +1,323 @@
+/** ********** IMPORT LIBRARIES ********** */
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
+
+/** ********** IMPORT ACTIONS ********** */
+import { login } from '../../actions/securityActions';
+
+/** ********** IMPORT COMPONENTS ********** */
+import Layout from "../dashboard/Layout"
+
+/** ********** IMPORT STYLES ********** */
 import "./Auth.scss";
+
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
-      password: "",
-      errors: {}
-    }; 
+      pass: "",
+      errors: {},
+      data: [],
+      success: this.props.data.success,
+      loadingData: false
+    };
   }
-  componentDidMount() {
-    // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
+
+  /** ********** FETCH DATA ACCOUNT ********** */
+  componentDidMount(){
+    if(localStorage.getItem('uuid') !== null ) {
+      window.location.pathname = "/dashboard"
+      window.history.back("/dashboard")
+      window.history.go("/dashboard")
+      this.props.history.pushState("/dashboard", Layout)
+    } 
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
-    }
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
+
+  /** ********** CHANGE DATA FROM INPUT ********** */
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
-  onSubmit = e => {
-    e.preventDefault();
-    const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    this.props.loginUser(userData);
+
+  /** ********** LOGIN USER ********** */
+  clickForm = () => {
+    const { email, pass } = this.state;
+    this.props.loginUser(email, pass);
   };
-  fillDemoEmail = () => {
-    this.setState({ email: "test@test.com" });
-  };
-  fillDemoPassword = () => {
-    this.setState({ password: "test123" });
-  };
+
+  /** ********** LOGIN USER WITH ENTER KEY ********** */
+  onKeyPress = event => {
+    if(event.key === 'Enter') {
+      event.preventDefault()
+      event.stopPropagation()
+      this.clickForm()
+    }
+  }
+
+  // WITH REDUX
+  // componentDidMount() {
+  //   if(this.props.security.validToken) {
+  //     this.props.history.push('/dashboard')
+  //   }
+  // }
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   if(nextProps.security.validToken) {
+  //     this.props.history.push('/dashboard')
+  //   }
+  //   if(nextProps.errors) {
+  //     this.setState({
+  //       errors: nextProps.errors
+  //     })
+  //   }
+  // }
+  // onSubmit = event => {
+  //   event.preventDefault()
+  //   const LoginRequest = {
+  //     email: this.state.email,
+  //     pass: this.state.pass
+  //   }
+  //   this.props.login(LoginRequest)
+  // }
+  // onChange = event => {
+  //   this.setState({ [event.target.id]: event.target.value })
+  // }
+
   render() {
-    const { errors } = this.state;
-    return (
-      <div className="wrapper">
-        <div className="header">ЛОГО</div>
-        <div className="base-wrapper">
-          {/*<div className="auth-header">Sign In</div>*/}
-          <form className="auth-form" noValidate onSubmit={this.onSubmit}>
-            <div className="auth-group">
-              <div className="bottom-group">
-                <Link to="/register" className="link">
-                  Регистрация
-                </Link>
-                <Link to="/" className="link">
+    const { errors, email, pass } = this.state;
+    const { err } = this.props.data;
+    let uuid = localStorage.getItem('uuid')
+      if(this.props.data.length === 0 
+        || this.props.data.success === "false" 
+        || pass === "" 
+        || email === ""
+      ) {
+      return (
+        <div className="wrapper">
+          <div className="header-logo">
+            <img src="../../img/carddex_logo.png" alt="" />
+          </div>
+          <div className="base-wrapper">
+            <div className="main-paragraph">
+              <h1>Личный кабинет Карддекс</h1>
+              <h3>Личный кабинет партнеров и дилеров Карддекс</h3>
+              <p>
+                Войдите или зарегистрируйтесь для получения всей доступной
+                информации по продуктам Карддекс, вашим заказам, скидкам и
+                предложениям.
+              </p>
+            </div>
+            <div className="wrapper-separator"></div>
+            <div className="wrapper-auth">
+              <div className="wrapper-auth__header">
+                <Link to="/" className="link-login active">
                   Вход
                 </Link>
+                {/*
+                <Link to="/register" className="link-register">
+                  Регистрация
+                </Link>
+                */}
               </div>
-              <label>
-                <div className="auth-label">Email</div>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  className="auth-input"
-                />
-                <div className="auth-error">
-                  {errors.email}
-                  {errors.emailnotfound}
-                </div>
-              </label>
+
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Email</div>
+                  <input
+                    onChange={this.onChange}
+                    onKeyDown={this.onKeyPress}
+                    value={this.state.email}
+                    error={errors.email}
+                    id="email"
+                    type="email"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">
+                    {errors.email}
+                    {errors.emailnotfound}
+                  </div>
+                </label>
+              </div>
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Пароль</div>
+                  <input
+                    onChange={this.onChange}
+                    onKeyDown={this.onKeyPress}
+                    value={this.state.pass}
+                    error={errors.pass}
+                    id="pass"
+                    type="password" //passowrd
+                    className="auth-input"
+                  />
+                  <div className="auth-error">
+                    {err}
+                    {errors.passwordincorrect}
+                  </div>
+                </label>
+              </div>
+              <div className="auth-password__ask">
+                <label>
+                  <input type="checkbox" /> Запомнить меня
+                </label>
+                <a
+                  href="https://yandex.ru"
+                  className="auth-group__ask-password"
+                >
+                  Забыли пароль?
+                </a>
+              </div>
+              <div className="auth-condition">
+                <span>Нажимая кнопку "Войти", вы принимаете</span>
+                <a
+                  href="https://yandex.ru"
+                  className="auth-conditon__confidiency"
+                >
+                  Условия "Политики Конфиденциальности"
+                </a>
+              </div>
+              <div>
+                <Link to="/">
+                  <button
+                    onClick={this.clickForm}
+                    type="submit"
+                    className="auth-button"
+                  >
+                    Войти
+                  </button>
+                </Link>
+              </div>
             </div>
-            <div className="auth-group">
-              <label>
-                <div className="auth-label">Пароль</div>
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  className="auth-input"
-                />
-                <div className="auth-error">
-                  {errors.password}
-                  {errors.passwordincorrect}
-                </div>
-              </label>
+          </div>
+          <div className="footer">
+            <div className="footer-copy">
+              <h1>Copyright 2019 &copy; CARDDEX</h1>
+              <p>Информация на сайте не является публичной офертой</p>
             </div>
-            <div>
-              <button type="submit" className="auth-button">
-                Войти
-              </button>
-            </div>
-          </form>
-          <div className="main-paragraph">
-            <h1>Lorem ipsum dolor sit amet</h1>
-            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
-            <p>
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
           </div>
         </div>
-        <div className="footer">
-          <a href="https://yandex.ru">О Нас</a>
-          <a href="https://yandex.ru">Связаться с нами</a>
-          <a href="https://yandex.ru">Помощь</a>
+      )
+    } else if(this.props.data.success === "true" && uuid !== null) {
+      return <Redirect to="/dashboard" />
+    } else {
+      return (
+        <div className="wrapper">
+          <div className="header-logo">
+            <img src="../../img/carddex_logo.png" alt="" />
+          </div>
+          <div className="base-wrapper">
+            <div className="main-paragraph">
+              <h1>Личный кабинет Карддекс</h1>
+              <h3>Личный кабинет партнеров и дилеров Карддекс</h3>
+              <p>
+                Войдите или зарегистрируйтесь для получения всей доступной
+                информации по продуктам Карддекс, вашим заказам, скидкам и
+                предложениям.
+              </p>
+            </div>
+            <div className="wrapper-separator"></div>
+            <div className="wrapper-auth">
+              <div className="wrapper-auth__header">
+                <Link to="/" className="link-login active">
+                  Вход
+                </Link>
+                {/*
+                <Link to="/register" className="link-register">
+                  Регистрация
+                </Link>
+                */}
+              </div>
+
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Email</div>
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.email}
+                    error={errors.email}
+                    onKeyDown={this.onKeyPress}
+                    id="email"
+                    type="email"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">
+                    {errors.email}
+                    {errors.emailnotfound}
+                  </div>
+                </label>
+              </div>
+              <div className="auth-group">
+                <label>
+                  <div className="auth-label">Пароль</div>
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.pass}
+                    error={errors.pass}
+                    onKeyDown={this.onKeyPress}
+                    id="pass"
+                    type="password"
+                    className="auth-input"
+                  />
+                  <div className="auth-error">
+                    {errors.pass}
+                    {errors.passwordincorrect}
+                  </div>
+                </label>
+              </div>
+              <div className="auth-password__ask">
+                <label>
+                  <input type="checkbox" /> Запомнить меня
+                </label>
+                <a
+                  href="https://yandex.ru"
+                  className="auth-group__ask-password"
+                >
+                  Забыли пароль?
+                </a>
+              </div>
+              <div className="auth-condition">
+                <span>Нажимая кнопку "Войти", вы принимаете</span>
+                <a
+                  href="https://yandex.ru"
+                  className="auth-conditon__confidiency"
+                >
+                  Условия "Политики Конфиденциальности"
+                </a>
+              </div>
+              <div>
+                <Link to="/dashboard">
+                  <button
+                    type="submit"
+                    className="auth-button"
+                  >
+                    Войти
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="footer">
+            <div className="footer-copy">
+              <h1>Copyright 2019 &copy; CARDDEX</h1>
+              <p>Информация на сайте не является публичной офертой</p>
+            </div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+ login: PropTypes.func.isRequired,
+ security: PropTypes.object.isRequired,
+ errors: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+ security: state.security,
+ errors: state.errors
 });
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { login }
 )(Login);
