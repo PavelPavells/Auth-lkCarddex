@@ -35,6 +35,8 @@ class Layout extends Component {
       uuid: ''
     }
   }
+
+  /** ********** FETCH DATA ACCOUNT ********** */
   componentDidMount() {
     //this.props.getProjects();
     //this.props.registerWebApp();

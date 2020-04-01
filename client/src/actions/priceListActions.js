@@ -39,6 +39,17 @@ export const fetchDataPriceList = data => {
     }
 }
 
+// export const fetchDataPriceListPagination = data => {
+//     return async dispatch => {
+//         dispatch(fetchingDataRequest());
+//         try {
+//             await axios.post(`${site}`)
+//         } catch (error) {
+            
+//         }
+//     }
+// }
+
 /** ********** ACTIONS FOR TOGGLE POPUP WINDOW ********** */
 //export const togglePopupWindowTurnstile = () => ({ type: TOGGLE_MODAL_TURNSTILE })
 

@@ -13,23 +13,21 @@ import { fetchDataWebApp } from "../../../../actions/webAppActions";
 /** ********** IMPORT STYLES ********** */
 import "./WebApp.scss";
 
-class RegisterApp extends Component {
-    render() {
-        return(
-            <div className="register-msg">Приложение успешно зарегестрировано.</div>
-        )
-    }
+const RegisterApp = () => {
+    return(
+        <div className="register-msg">Приложение успешно зарегестрировано.</div>
+    )
 }
 class WebApp extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            app: false,
-            isRegister: false,
-            isLoading: false,
-            open: false
-        }
+    //constructor(props) {
+    //    super(props)
+    state = {
+        app: false,
+        isRegister: false,
+        isLoading: false,
+        open: false
     }
+    //}
 
     /** ********** FETCH DATA ACCOUNT ********** */
     componentDidMount() {
@@ -47,9 +45,9 @@ class WebApp extends Component {
         })
     }
     render() {
-        //const { app, isFetching } = this.props.data;
+        //const { app } = this.props;
         //console.log(app);
-        //if(app.data.length === 0 && !isFetching) {
+        //if(app.data.length === 0 && app.isFetching) {
         //  return <Loader />
         //}
         return(
@@ -126,10 +124,11 @@ class WebApp extends Component {
     }
 }
 WebApp.propTypes = {
-    data: PropTypes.object.isRequired
+    app: PropTypes.object.isRequired,
+    fetchDataWebApp: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
-    data: state
+    app: state.app
 })
 export default withRouter(
     connect(

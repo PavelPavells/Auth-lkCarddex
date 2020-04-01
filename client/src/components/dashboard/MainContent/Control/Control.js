@@ -13,9 +13,9 @@ import { fetchDataControl } from "../../../../actions/controlActions.js";
 import "./Control.scss";
 
 class Control extends Component {
-  constructor() {
-    super();
-    this.state = {
+  //constructor() {
+  //  super();
+    state = {
         name: "",
         email: "",
         contact_person: "",
@@ -23,7 +23,7 @@ class Control extends Component {
         isCheckedAdmin: false,
         isCheckedManager: false
     };
-  }
+  //}
 
   /** ********** FETCH DATA FOR CONTROL ********** */
   componentDidMount() {
@@ -55,9 +55,9 @@ class Control extends Component {
     this.props.fetchDataControl(changeUserData);
   }
   render() {
-    //const { control, isFetching } = this.props.data;
+    //const { control } = this.props;
     //console.log(control);
-    //if(control.data.length === 0 && !isFetching) {
+    //if(control.data.length === 0 || control.isFetching) {
     //  return <Loader />
     //}
     return (
@@ -162,10 +162,11 @@ class Control extends Component {
   }
 }
 Control.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  fetchDataControl: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-   data: state
+   data: state.control
 });
 export default connect(
   mapStateToProps,

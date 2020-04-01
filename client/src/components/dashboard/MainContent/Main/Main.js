@@ -19,21 +19,21 @@ import { fetchDataMain } from "../../../../actions/mainActions";
 import "./Main.scss";
 
 class Main extends Component {
-  constructor() {
-    super();
-    this.state = {
+  //constructor() {
+  //  super();
+    state = {
       main: []
     };
-  }
+  //}
 
   /** ********** FETCH DATA ACCOUNT ********** */
   componentDidMount() {
     //this.props.fetchDataMain();
   }
   render() {
-    //const { main, isFetching } = this.props.data;
+    //const { main } = this.props;
     //console.log(main);
-    //if(main.data.length === 0 && !isFetching) {
+    //if(main.data.length === 0 || main.isFetching) {
     //  return <Loader />
     //}
     return (
@@ -179,10 +179,11 @@ class Main extends Component {
   }
 }
 Main.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  fetchDataMain: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  data: state
+  data: state.main
 });
 export default connect(
   mapStateToProps,

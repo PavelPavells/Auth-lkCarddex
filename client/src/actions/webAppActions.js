@@ -14,7 +14,7 @@ export const fetchingDataRequest = () => ({ type: DATA_LOADING_REQUEST });
 /** ********** ACTION FOR FETCH DATA SUCCESS ********** */
 export const fetchingDataSuccess = data => ({
     type: DATA_LOADING_SUCCESS,
-    payload: data
+    payload: data.data
 })
 
 /** ********** ACTION FOR FETCH DATA FAILURE ********** */
@@ -24,11 +24,11 @@ export const fetchingDataFailure = error => ({
 })
 
 /** ********** ACTION FOR FETCH DATA WEBAPP ********** */
-export const fetchDataWebApp = () => {
+export const fetchDataWebApp = data => {
     return async dispatch => {
         dispatch(fetchingDataRequest());
         try {
-            await axios.post(`${site}`, {})
+            await axios.post(`${site}`, data)
             .then(data => {
                 dispatch(fetchingDataSuccess(data));
             })

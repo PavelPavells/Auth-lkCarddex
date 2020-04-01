@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
         case DATA_LOADING_REQUEST:
             return { ...state, isFetching: true };
         case DATA_LOADING_SUCCESS:
-            return { ...state, isFetching: false, sidenav: action.payload }
+            return { ...state, isFetching: false, data: action.payload }
         case DATA_LOADING_FAILURE:
             return { ...state, isFetching: false, errorMessage: action.payload }
         default: return state;
