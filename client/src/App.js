@@ -74,7 +74,7 @@ class App extends Component {
     localStorage.clear()
   }
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { data } = this.state;
     console.log(this.state.data)
     return (

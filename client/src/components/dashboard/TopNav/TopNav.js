@@ -11,13 +11,13 @@ import { Link, withRouter } from "react-router-dom";
 import "./TopNav.scss";
 
 class TopNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  //constructor(props) {
+    //super(props);
+    state = {
       dropdown: false,
       openContactUs: false
     };
-  }
+  //}
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClick, false);
   }
@@ -128,11 +128,11 @@ class TopNav extends Component {
   }
 }
 TopNav.propTypes = {
-  data: PropTypes.object,
-  security: PropTypes.object.isRequired
+  topnav: PropTypes.object,
+  security: PropTypes.object
 }
 const mapStateToProps = state => ({
-  security: state.security
+  topnav: state.topnav
 });
 export default connect(
   mapStateToProps,

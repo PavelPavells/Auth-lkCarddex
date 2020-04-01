@@ -14,9 +14,9 @@ import { fetchDataAccount } from "../../../../actions/accountActions";
 import "./Account.scss";
 
 class Account extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  //constructor(props) {
+  //  super(props);
+    state = {
       company_name: "",
       company_inn: "",
       name: "",
@@ -27,7 +27,7 @@ class Account extends Component {
       errors: {}
     };
     //console.log(props);
-  }
+  //}
 
   /** ********** FETCH DATA ACCOUNT ********** */
   componentDidMount() {
@@ -55,9 +55,9 @@ class Account extends Component {
     this.props.fetchDataAccount(userData);
   };
   render() {
-    //const { account, isFetching } = this.props.data;
+    //const { account } = this.props;
     //console.log(account);
-    //if(account.data.length === 0 && !isFetching) {
+    //if(account.data.length === 0 || account.isFetching) {
     //  return <Loader />
     //}
     console.log(this.props)
@@ -209,10 +209,11 @@ class Account extends Component {
   }
 }
 Account.propTypes = {
-    data: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    fetchDataAccount: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
-    data: state
+    data: state.account
 });
 export default withRouter(
   connect(

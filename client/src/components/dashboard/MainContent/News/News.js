@@ -5,13 +5,13 @@ import { ROOT_URL } from "../../../../actions/newsActions";
 import moment from "moment";
 import "./News.scss";
 class News extends Component {
-  constructor() {
-    super();
-    this.state = {
+  //constructor() {
+  //  super();
+    state = {
       articles: [],
       isLoading: false
     };
-  }
+  //}
   componentDidMount() {
     this.setState({
         isLoading: true, 
@@ -26,6 +26,13 @@ class News extends Component {
   }
   render() {
     const { articles, isLoading } = this.state;
+    //const { isLoading, data } = this.state;
+    //const { news } = this.props;
+    //console.log(news);
+    //console.log(isFetching)
+    //if(news.data.length === 0 || news.isFetching) {
+    //  return <Loader />
+    //}
     return (
       <div className="main-content">
         <h1>Новости</h1>

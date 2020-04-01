@@ -9,7 +9,7 @@ import "react-dates/lib/css/_datepicker.css";
 import "moment/locale/ru";
 
 /** ********** IMPORT ACTIONS ********** */
-//import { fetchDataPayment } from "../../../../actions/paymentActions";
+import { fetchDataPayment } from "../../../../actions/paymentActions";
 
 /** ********** IMPORT LOADER from __UTILS__ ********** */
 import Loader from "../../../../__utils__/Spinner";
@@ -21,45 +21,25 @@ import site from "../../../../constants/Global";
 import "./Payment.scss";
 
 class Payment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      isLoading: false,
-      startDate: null,
-      endDate: null,
-      search: "",
-      login: this.props.data,
-      offset: 0,
-      page: 0,
-      refresh: false,
-      optionFilter: 15
-    };
-  }
+
+  state = {
+    startDate: null,
+    endDate: null,
+    login: '',
+    offset: 0,
+    page: 0,
+    optionFilter: 15
+  };
 
   /** ********** FETCH DATA ACCOUNT ********** */
   componentDidMount() {
-    //this.props.fetchDataPayment();
-    axios
-      .post(`${site}sortBetweenCashFlows`, {
+    let data = {
         offset: this.state.offset,
         size: this.state.optionFilter,
-        login: this.state.login
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          isLoading: true,
-          optionFilter: this.state.optionFilter
-        });
-      })
-      .catch(error => console.log(error));
+        login: this.props.data
+    }
+    this.props.fetchDataPayment(data);
   }
-
-  /** ********** CHANGE TEXT FOR SEARCH ********** */
-  updateSearch = event => {
-    this.setState({ search: event.target.value });
-  };
 
   /** ********** CHANGE DATES FOR SEARCH ********** */
   onDatesChange = ({ startDate, endDate }) => {
@@ -88,128 +68,79 @@ class Payment extends Component {
     });
   };
 
-  /** ********** SEND TEXT FOR SEARCH ********** */
-  handleSendSearch = () => {
-    axios
-      .post(`${site}sortBetweenCashFlows`, {
-        offset: this.state.offset,
-        size: this.state.optionFilter,
-        startDate: this.state.startDate,
-        endDate: this.state.endDate,
-        login: this.state.login
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          startDate: this.state.startDate.Moment._d,
-          endDate: this.state.endDate.Moment._d
-        });
-      })
-      .catch(error => console.log(error));
-  };
-  onChange = event => {
-    this.setState({ [event.target.class]: event.target.value });
-  };
-
   /** ********** FIRST PAGE PAYMENT PAGINATION ********** */
   getFirstPage = () => {
-    this.setState({ firstPage: this.state.firstPage });
-    axios
-      .post(`${site}sortBetweenCashFlows`, {
-        offset: this.state.offset,
-        size: this.state.optionFilter,
-        login: this.state.login,
-        startDate: this.state.startDate
-          ? this.state.startDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null,
-        endDate: this.state.endDate
-          ? this.state.endDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          offset: this.state.offset,
-          size: this.state.optionFilter,
-          page: 0
-        });
-      });
+    this.setState({ page: 0 })
+    let data = {
+      offset: 0,
+      size: this.state.optionFilter,
+      login: this.props.data,
+      startDate: this.state.startDate
+        ? this.state.startDate._d
+            .toISOString()
+            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+        : null,
+      endDate: this.state.endDate
+        ? this.state.endDate._d
+            .toISOString()
+            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+        : null
+    }
+    this.props.fetchDataPayment(data);
   };
 
   /** ********** PREVIOUS PAGE PAYMENT PAGINATION ********** */
   getPreviousPage = () => {
-    let self = this;
-    this.setState(
-      prevState => {
+    this.setState(prevState => {
         if (prevState.page > 0) {
           return {
             page: prevState.page - 1
           };
         }
-      },
-      () => {
-        axios
-          .post(`${site}sortBetweenCashFlows`, {
-            offset: this.state.page,
-            size: this.state.optionFilter,
-            login: this.state.login,
-            startDate: this.state.startDate
-              ? this.state.startDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null,
-            endDate: this.state.endDate
-              ? this.state.endDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null
-          })
-          .then(res => {
-            self.setState({
-              data: res.data
-            });
-          })
-          .catch(error => console.log(error));
+      }, () => {
+        let data = {
+          offset: this.state.page,
+          size: this.state.optionFilter,
+          login: this.props.data,
+          startDate: this.state.startDate
+            ? this.state.startDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null,
+          endDate: this.state.endDate
+            ? this.state.endDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null
+        }
+        this.props.fetchDataPayment(data);
       }
     );
   };
 
   /** ********** NEXT PAGE PAYMENT PAGINATION ********** */
   getNextPage = () => {
-    let self = this;
-    this.setState(
-      prevState => {
+    this.setState(prevState => {
         return {
           page: prevState.page + 1
         };
-      },
-      () => {
-        axios
-          .post(`${site}sortBetweenCashFlows`, {
-            offset: this.state.page,
-            size: this.state.optionFilter,
-            login: this.state.login,
-            startDate: this.state.startDate
-              ? this.state.startDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null,
-            endDate: this.state.endDate
-              ? this.state.endDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null
-          })
-          .then(res => {
-            self.setState({
-              data: res.data
-            });
-          })
-          .catch(error => console.log(error));
+      },() => {
+        let data = {
+          offset: this.state.page,
+          size: this.state.optionFilter,
+          login: this.props.data,
+          startDate: this.state.startDate
+            ? this.state.startDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null,
+          endDate: this.state.endDate
+            ? this.state.endDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null
+        }
+        this.props.fetchDataPayment(data);
       }
     );
   };
@@ -220,7 +151,7 @@ class Payment extends Component {
       .post(`${site}findLastCashFlows`, {
         offset: this.state.offset,
         size: this.state.optionFilter,
-        login: this.state.login,
+        login: this.props.data,
         startDate: this.state.startDate
           ? this.state.startDate._d
               .toISOString()
@@ -244,228 +175,204 @@ class Payment extends Component {
 
   /** ********** REFRESH DATA FOR PAYMENT TABLE ********** */
   handleRefreshData = () => {
-    axios
-      .post(`${site}sortBetweenCashFlows`, {
-        offset: this.state.offset,
+      let data = {
+        offset: this.state.page,
         size: this.state.optionFilter,
-        login: this.state.login
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          isLoading: true,
-          optionFilter: this.state.optionFilter
-        });
-      })
-      .catch(error => console.log(error));
+        login: this.props.data,
+      }
+      this.props.fetchDataPayment(data);
   };
 
   /** ********** FILTER FOR VISION DATA IN TABLE ********** */
   handleOptionFilter = event => {
-    let self = this;
     let elem = event.target.value;
-    this.setState(
-      {
+    this.setState({
         optionFilter: elem
-      },
-      () => {
-        axios
-          .post(`${site}sortBetweenCashFlows`, {
-            offset: this.state.offset,
-            size: this.state.optionFilter,
-            startDate: this.state.startDate
-              ? this.state.startDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null,
-            endDate: this.state.endDate
-              ? this.state.endDate._d
-                  .toISOString()
-                  .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-              : null, 
-            login: this.state.login
-          })
-          .then(res => {
-            self.setState({
-              optionFilter: elem,
-              data: res.data,
-              isLoading: true
-            });
-          });
+      }, () => {
+        let data = {
+          offset: this.state.page,
+          size: this.state.optionFilter,
+          login: this.props.data,
+          startDate: this.state.startDate
+            ? this.state.startDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null,
+          endDate: this.state.endDate
+            ? this.state.endDate._d
+                .toISOString()
+                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
+            : null
+        }
+        this.props.fetchDataPayment(data);
       }
     );
   };
   render() {
-    const { isLoading, data } = this.state;
-    //const { payment, isFetching } = this.props.data;
+    const { payment } = this.props;
     //console.log(payment);
-    //if(payment.data.length === 0 && !isFetching) {
-    //  return <Loader />
-    //}
-    console.log(this.state.data)
-    if (!isLoading) {
-      return <Loader />;
-    } else {
-      return (
-        <main className="main-content">
-          {/** ========================== HEADER TABLE ============================== */}
+    if(payment.data.length === 0 || payment.isFetching) {
+      return <Loader />
+    }
+    return (
+      <main className="main-content">
+        {/** ========================== HEADER TABLE ============================== */}
 
-          <header className="wrapper-table__header">
-            <section className="table__header-left">
-              <div className="table__header-left-up"></div>
-            </section>
-            <section className="table__header-right">
-              <form onChange={this.handleSendSearch}>
-                <DateRangePicker
-                  anchorDirection="left"
-                  block={false}
-                  customArrowIcon={null}
-                  customCloseIcon={null}
-                  customInputIcon={null}
-                  disabled={false}
-                  displayFormat={function noRefCheck() {}}
-                  enableOutsideDays={false}
-                  horizontalMargin={0}
-                  initialVisibleMonth={null}
-                  isDayBlocked={function noRefCheck() {}}
-                  isDayHighlighted={function noRefCheck() {}}
-                  isOutsideRange={function noRefCheck() {}}
-                  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                  startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                  endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                  onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
-                  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                  onFocusChange={focusedInput =>
-                    this.setState({ focusedInput })
-                  } // PropTypes.func.isRequired,
-                  startDatePlaceholderText="Дата начала"
-                  endDatePlaceholderText="Дата конца"
-                  showClearDates
-                  navNext={null}
-                  navPosition="navPositionTop"
-                  navPrev={null}
-                  onNextMonthClick={function noRefCheck() {}}
-                  onPrevMonthClick={function noRefCheck() {}}
-                />
-              </form>
-            </section>
-          </header>
+        <header className="wrapper-table__header">
+          <section className="table__header-left">
+            <div className="table__header-left-up"></div>
+          </section>
+          <section className="table__header-right">
+            <form onChange={this.handleSendSearch}>
+              <DateRangePicker
+                anchorDirection="left"
+                block={false}
+                customArrowIcon={null}
+                customCloseIcon={null}
+                customInputIcon={null}
+                disabled={false}
+                displayFormat={function noRefCheck() {}}
+                enableOutsideDays={false}
+                horizontalMargin={0}
+                initialVisibleMonth={null}
+                isDayBlocked={function noRefCheck() {}}
+                isDayHighlighted={function noRefCheck() {}}
+                isOutsideRange={function noRefCheck() {}}
+                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                onDatesChange={this.onDatesChange} // PropTypes.func.isRequired,
+                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                onFocusChange={focusedInput =>
+                  this.setState({ focusedInput })
+                } // PropTypes.func.isRequired,
+                startDatePlaceholderText="Дата начала"
+                endDatePlaceholderText="Дата конца"
+                showClearDates
+                navNext={null}
+                navPosition="navPositionTop"
+                navPrev={null}
+                onNextMonthClick={function noRefCheck() {}}
+                onPrevMonthClick={function noRefCheck() {}}
+              />
+            </form>
+          </section>
+        </header>
 
-          {/** ========================== HEADER MAIN TABLE ============================== */}
+        {/** ========================== HEADER MAIN TABLE ============================== */}
 
-          <section className="wrapper-table__main-pay">
-            <section className="wrapper-table__header-pay">
-              {data.payload.recordDisplayRules.map((index, key) => {
-                if (index.visible === 1) {
-                  return (
-                    <div key={index.field_name} className="name-of-product">
-                      <div
-                        className="table-header__text"
-                        style={{ textAlign: "center" }}
-                      >
-                        <strong>{index.display_name}</strong>
-                      </div>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </section>
-
-            {/** ========================== DOOR  TABLE ============================== */}
-
-            <section className="wrapper-table__main-categories">
-              <div
-                className="wrapper-itype__name"
-              >
-                {data.payload.recordSet.map((index, key) => (
-                  <div key={key} className="wrapper-column">
-                    <div className="toggle-itype-name-pay" key={key.id}>
-                      <div>{index.partner_name}</div>
-                    </div>
-                    <div className="toggle-itype-name-pay" key={key.id}>
-                      <div className="numbers">
-                        {index.cash_date.replace(/([^T]+)T([^\.]+).*/g,"$1 $2")} {/* eslint-disable-line */}
-                      </div>
-                      {/* eslint-disable-line */}
-                    </div>
-                    <div className="toggle-itype-name-pay" key={key.id}>
-                      <div className="numbers">{index.cash_sum.toFixed(1)}</div>
-                    </div>
-                    <div className="toggle-itype-name-pay" key={key.id}>
-                      <div className="numbers">{index.cash_sum_acum.toFixed(1)}</div>
-                    </div>
-                    <div className="toggle-itype-name-pay" key={key.id}>
-                      <div>{index.currency_str}</div>
+        <section className="wrapper-table__main-pay">
+          <section className="wrapper-table__header-pay">
+            {payment.data.payload.recordDisplayRules.map((index, key) => {
+              if (index.visible === 1) {
+                return (
+                  <div key={index.field_name} className="name-of-product">
+                    <div
+                      className="table-header__text"
+                      style={{ textAlign: "center" }}
+                    >
+                      <strong>{index.display_name}</strong>
                     </div>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/** ========================== ELECTRONIC CONTROL  TABLE ============================== */}
+                );
+              } else {
+                return null;
+              }
+            })}
           </section>
 
-          {/** ========================== FOOTER TABLE ============================== */}
+          {/** ========================== DOOR  TABLE ============================== */}
 
-          <footer className="wrapper-table__footer">
-            <section className="wrapper-table__footer-left">
+          <section className="wrapper-table__main-categories">
+            <div
+              className="wrapper-itype__name"
+            >
+              {payment.data.payload.recordSet.map((index, key) => (
+                <div key={key} className="wrapper-column">
+                  <div className="toggle-itype-name-pay" key={key.id}>
+                    <div>{index.partner_name}</div>
+                  </div>
+                  <div className="toggle-itype-name-pay" key={key.id}>
+                    <div className="numbers">
+                      {index.cash_date ? index.cash_date.replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : index.cash_date} {/* eslint-disable-line */}
+                    </div>
+                  </div>
+                  <div className="toggle-itype-name-pay" key={key.id}>
+                    <div className="numbers">{index.cash_sum}</div>
+                  </div>
+                  <div className="toggle-itype-name-pay" key={key.id}>
+                    <div className="numbers">{index.cash_sum_acum}</div>
+                  </div>
+                  <div className="toggle-itype-name-pay" key={key.id}>
+                    <div>{index.currency_str}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/** ========================== ELECTRONIC CONTROL  TABLE ============================== */}
+        </section>
+
+        {/** ========================== FOOTER TABLE ============================== */}
+
+        <footer className="wrapper-table__footer">
+          <section className="wrapper-table__footer-left">
+            <div
+              onClick={this.getFirstPage}
+              className="footer-table__first-page"
+            ></div>
+            <div
+              onClick={this.getPreviousPage}
+              className="footer-table__prev-page"
+            ></div>
+            <div
+              onClick={this.getNextPage}
+              className="footer-table__next-page"
+            ></div>
+            <div
+              onClick={this.getLastPage}
+              className="footer-table__last-page"
+            ></div>
+            <div className="footer-table__options">
+              <label>
+                <select
+                  value={this.state.optionFilter}
+                  onChange={this.handleOptionFilter}
+                >
+                  <option value={15}>15</option>
+                  <option value={30}>30</option>
+                  <option value={50}>50</option>
+                </select>
+              </label>
+            </div>
+            <div className="footer-table__text">Позиций на странице</div>
+          </section>
+          <section className="wrapper-table__footer-right">
+            <div className="footer-table__pages">
+              {this.state.optionFilter} из {payment.data.payload.countUUID}
+            </div>
+            {<Loader /> && (
               <div
-                onClick={this.getFirstPage}
-                className="footer-table__first-page"
+                onClick={this.handleRefreshData}
+                className="footer-table__refresh-data"
               ></div>
-              <div
-                onClick={this.getPreviousPage}
-                className="footer-table__prev-page"
-              ></div>
-              <div
-                onClick={this.getNextPage}
-                className="footer-table__next-page"
-              ></div>
-              <div
-                onClick={this.getLastPage}
-                className="footer-table__last-page"
-              ></div>
-              <div className="footer-table__options">
-                <label>
-                  <select
-                    value={this.state.optionFilter}
-                    onChange={this.handleOptionFilter}
-                  >
-                    <option value={15}>15</option>
-                    <option value={30}>30</option>
-                    <option value={50}>50</option>
-                  </select>
-                </label>
-              </div>
-              <div className="footer-table__text">Позиций на странице</div>
-            </section>
-            <section className="wrapper-table__footer-right">
-              <div className="footer-table__pages">
-                {this.state.optionFilter} из {data.payload.countUUID}
-              </div>
-              {<Loader /> && (
-                <div
-                  onClick={this.handleRefreshData}
-                  className="footer-table__refresh-data"
-                ></div>
-              )}
-            </section>
-          </footer>
-        </main>
-      );
-    }
+            )}
+          </section>
+        </footer>
+      </main>
+    );
   }
 }
 Payment.propTypes = {
-   data: PropTypes.object.isRequired
+   payment: PropTypes.object.isRequired,
+   fetchDataPayment: PropTypes.func.isRequired
 }
-//const mapStateToProps = state => ({
-//   data: state
-//})
+const mapStateToProps = state => ({
+   payment: state.payment
+})
 export default connect(
-   null,//mapStateToProps,
-   null//{ fetchDataPayment }
+   mapStateToProps,
+   { fetchDataPayment }
 )(Payment)
