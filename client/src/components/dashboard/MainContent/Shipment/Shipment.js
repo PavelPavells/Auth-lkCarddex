@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import axios from "axios";
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
@@ -10,11 +9,11 @@ import "react-dates/lib/css/_datepicker.css";
 /** ********** IMPORT LOADER from __UTILS__ ********** */
 import Loader from "../../../../__utils__/Spinner";
 
-/** ********** IMPORT GLOBAL SETTINGS ********** */
-import site from "../../../../constants/Global";
-
 /** ********** IMPORT ACTIONS ********** */
-import { fetchDataShipment } from "../../../../actions/shipmentActions";
+import { 
+  fetchDataShipment, 
+  fetchDataLastPageShipment 
+} from "../../../../actions/shipmentActions";
 
 /** ********** IMPORT STYLES ********** */
 import "./Shipment.scss";
@@ -44,47 +43,26 @@ class Shipment extends Component {
   /** ********** CHANGE DATES FOR SEARCH ********** */
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => {
-      axios
-        .post(`${site}sortBetweenPartnerShipments`, {
-          offset: this.state.offset,
-          size: this.state.optionFilter,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          login: this.props.data
-        })
-        .then(res => {
-          this.setState({
-            data: res.data /// ADD startDate && endDate
-          });
-        });
+      let data = {
+        offset: this.state.offset,
+        size: this.state.optionFilter,
+        startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+        endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+        login: this.props.data
+      }
+      this.props.fetchDataShipment(data);
     });
   };
 
   /** ********** FIRST PAGE SHIPMENT PAGINATION ********** */
   getFirstPage = () => {
-    this.setState({ page: 0 })
+    this.setState({ page: 0 });
     let data = {
       offset: 0,
       size: this.state.optionFilter,
       login: this.props.data,
-      startDate: this.state.startDate
-        ? this.state.startDate._d
-            .toISOString()
-            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-        : null,
-      endDate: this.state.endDate
-        ? this.state.endDate._d
-            .toISOString()
-            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-        : null
+      startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+      endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
     }
     this.props.fetchDataShipment(data);
   };
@@ -92,26 +70,14 @@ class Shipment extends Component {
   /** ********** PREVIOUS PAGE SHIPMENT PAGINATION ********** */
   getPreviousPage = () => {
     this.setState(prevState => {
-        if (prevState.page > 0) {
-          return {
-            page: prevState.page - 1
-          };
-        }
+        return prevState.page > 0 ? ({ page: prevState.page - 1 }) : null;
       }, () => {
         let data = {
           offset: this.state.page,
           size: this.state.optionFilter,
           login: this.props.data,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null
+          startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+          endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataShipment(data);
       }
@@ -120,25 +86,17 @@ class Shipment extends Component {
 
   /** ********** NEXT PAGE SHIPMENT PAGINATION ********** */
   getNextPage = () => {
+    //const { payload } = this.props.pricelist.data;
     this.setState(prevState => {
-      return {
-        page: prevState.page + 1
-      };
+      //return prevState.page >= 0 && prevState.page < payload.page ? ({ page: prevState.page + 1 }) : null;
+      return prevState.page >= 0 ? ({ page: prevState.page + 1 }) : null;
     }, () => {
       let data = {
         offset: this.state.page,
         size: this.state.optionFilter,
         login: this.props.data,
-        startDate: this.state.startDate
-          ? this.state.startDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null,
-        endDate: this.state.endDate
-          ? this.state.endDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null
+        startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+        endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataShipment(data);
       }
@@ -147,30 +105,17 @@ class Shipment extends Component {
 
   /** ********** LAST PAGE SHIPMENT PAGINATION ********** */
   getLastPage = () => {
-    axios
-      .post(`${site}findLastPartnerShipments`, {
-        offset: this.state.offset,
-        size: this.state.optionFilter,
-        login: this.props.data,
-        startDate: this.state.startDate
-          ? this.state.startDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null,
-        endDate: this.state.endDate
-          ? this.state.endDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          offset: this.state.offset,
-          page: res.data.payload.page
-        });
-      })
-      .catch(error => console.log(error));
+    return console.log('No PAGE FIELD');
+    //const { payload } = this.props.pricelist.data;
+    //this.setState({ page: payload.page });
+      //let data = {
+      //  offset: this.state.offset,
+      //  size: this.state.optionFilter,
+      //  login: this.props.data,
+      //  startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+      //  endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
+      //}
+      //this.props.fetchDataLastPageShipment(data);
   };
 
   /** ********** REFRESH DATA FOR SHIPMENT TABLE ********** */
@@ -193,16 +138,8 @@ class Shipment extends Component {
           offset: this.state.page,
           size: this.state.optionFilter,
           login: this.props.data,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null
+          startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+          endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataShipment(data);
       }
@@ -223,7 +160,7 @@ class Shipment extends Component {
   render() {
     const { shipment } = this.props;
     //console.log(shipment);
-    if(shipment.data.length === 0 || shipment.isFetching) {
+    if(shipment.data.length === 0) {
       return <Loader />
     }
     return (
@@ -387,5 +324,5 @@ const mapStateToProps = state => ({
 })
 export default connect(
   mapStateToProps,
-  { fetchDataShipment }
+  { fetchDataShipment, fetchDataLastPageShipment }
 )(Shipment);

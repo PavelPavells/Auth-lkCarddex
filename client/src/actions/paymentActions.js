@@ -39,6 +39,22 @@ export const fetchDataPayment = data => {
     }
 }
 
+/** ********** ACTION FOR FETCH LAST PAGE DATA PAYMENT ********** */
+export const fetchDataLastPagePayment = data => {
+    return async dispatch => {
+        dispatch(fetchingDataRequest());
+        try {
+            await axios.post(`${site}findLastCashFlows`, data)
+            .then(data => {
+                dispatch(fetchingDataSuccess(data));
+            })
+            .catch(error => { console.log(error) })
+        } catch (error) {
+            dispatch(fetchingDataFailure(error));
+        }
+    }
+}
+
 /** ********** ACTIONS FOR TOGGLE POPUP WINDOW ********** */
 //export const togglePopupWindowTurnstile = () => ({ type: TOGGLE_MODAL_TURNSTILE })
 

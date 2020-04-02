@@ -39,6 +39,22 @@ export const fetchDataShipment = data => {
     }
 }
 
+/** ********** ACTION FOR FETCH LAST PAGE DATA SHIPMENT ********** */
+export const fetchDataLastPageShipment = data => {
+    return async dispatch => {
+        dispatch(fetchingDataRequest());
+        try {
+            await axios.post(`${site}findLastPartnerShipments`, data)
+            .then(data => {
+                dispatch(fetchingDataSuccess(data));
+            })
+            .catch(error => { console.log(error) })
+        } catch (error) {
+            dispatch(fetchingDataFailure(error));
+        }
+    }
+}
+
 /** ********** ACTIONS FOR TOGGLE POPUP WINDOW ********** */
 //export const togglePopupWindowTurnstile = () => ({ type: TOGGLE_MODAL_TURNSTILE })
 

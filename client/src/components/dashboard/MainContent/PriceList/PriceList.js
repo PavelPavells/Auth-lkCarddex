@@ -2,16 +2,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import axios from "axios";
 
 /** ********** IMPORT LOADER from __UTILS__ ********** */
 import Loader from "../../../../__utils__/Spinner";
 
 /** ********** IMPORT ACTIONS ********** */
-import { fetchDataPriceList } from "../../../../actions/priceListActions.js";
-
-/** ********** IMPORT GLOBAL SETTINGS ********** */
-import site from "../../../../constants/Global";
+import { fetchDataPriceList, fetchDataLastPagePriceList } from "../../../../actions/priceListActions.js";
 
 /** ********** IMPORT STYLES ********** */
 import "./PriceList.scss";
@@ -87,11 +83,7 @@ class PriceList extends Component {
   /** ********** PREVIOUS PAGE PRICE LIST PAGINATION ********** */
   getPreviousPage = () => {
     this.setState(prevState => {
-      if(prevState.page > 0) {
-        return {
-          page: prevState.page - 1
-        }
-      }
+      return prevState.page > 0 ? ({ page: prevState.page - 1 }) : null;
     }, () => {
       let data = {
         offset: this.state.page,
@@ -105,12 +97,9 @@ class PriceList extends Component {
 
   /** ********** NEXT PAGE PRICE LIST PAGINATION ********** */
   getNextPage = () => {
+    const { payload } = this.props.pricelist.data;
     this.setState(prevState => {
-      if(prevState.page >= 0) {
-        return {
-          page: prevState.page + 1
-        }
-      }
+      return prevState.page >= 0 && prevState.page < payload.page ? ({ page: prevState.page + 1 }) : null;
     }, () => {
       let data = {
         offset: this.state.page,
@@ -124,21 +113,15 @@ class PriceList extends Component {
 
   /** ********** LAST PAGE PRICE LIST PAGINATION ********** */
   getLastPage = () => {
-    axios
-      .post(`${site}getLastPage`, {
-        offset: this.state.offset,
-        size: this.state.optionFilter,
-        login: this.props.data,
-        value: this.state.search
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          offset: this.state.offset,
-          page: res.data.payload.page
-        })
-      })
-    .catch(error => console.log(error))
+    const { payload } = this.props.pricelist.data;
+    this.setState({ page: payload.page });
+    let data = {
+      offset: this.state.offset,
+      size: this.state.optionFilter,
+      login: this.props.data,
+      value: this.state.search
+    }
+    this.props.fetchDataLastPagePriceList(data);
   }
 
   /** ********** REFRESH DATA FOR PRICE LIST TABLE ********** */
@@ -175,10 +158,11 @@ class PriceList extends Component {
   //  this.setState({ openDoorControl: !this.state.openDoorControl })
   //}
   render() {
-    const { openElectronicControl, groupByCategories } = this.state;
+    const { openElectronicControl, groupByCategories, page } = this.state;
     const { pricelist } = this.props;
-    //console.log(this.props);
-    if(pricelist.data.length === 0 || pricelist.isFetching) {
+    console.log(pricelist);
+    console.log(page);
+    if(pricelist.data.length === 0) {
       return <Loader />
     }
     return (
@@ -397,5 +381,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps, 
-  { fetchDataPriceList }
+  { fetchDataPriceList, fetchDataLastPagePriceList }
 )(PriceList);
