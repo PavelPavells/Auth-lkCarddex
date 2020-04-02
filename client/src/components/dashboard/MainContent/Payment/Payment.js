@@ -2,20 +2,19 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import axios from "axios";
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import "moment/locale/ru";
 
 /** ********** IMPORT ACTIONS ********** */
-import { fetchDataPayment } from "../../../../actions/paymentActions";
+import { 
+  fetchDataPayment,
+  fetchDataLastPagePayment
+} from "../../../../actions/paymentActions";
 
 /** ********** IMPORT LOADER from __UTILS__ ********** */
 import Loader from "../../../../__utils__/Spinner";
-
-/** ********** IMPORT GLOABAL SETTINGS ********** */
-import site from "../../../../constants/Global";
 
 /** ********** IMPORT STYLES ********** */
 import "./Payment.scss";
@@ -44,47 +43,26 @@ class Payment extends Component {
   /** ********** CHANGE DATES FOR SEARCH ********** */
   onDatesChange = ({ startDate, endDate }) => {
     this.setState({ startDate, endDate }, () => {
-      axios
-        .post(`${site}sortBetweenCashFlows`, {
-          offset: this.state.offset,
-          size: this.state.optionFilter,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          login: this.state.login
-        })
-        .then(res => {
-          this.setState({
-            data: res.data /// ADD startDate && endDate
-          });
-        });
+      let data = {
+        offset: this.state.offset,
+        size: this.state.optionFilter,
+        startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+        endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+        login: this.props.data
+      }
+      this.props.fetchDataPayment(data);
     });
   };
 
   /** ********** FIRST PAGE PAYMENT PAGINATION ********** */
   getFirstPage = () => {
-    this.setState({ page: 0 })
+    this.setState({ page: 0 });
     let data = {
       offset: 0,
       size: this.state.optionFilter,
       login: this.props.data,
-      startDate: this.state.startDate
-        ? this.state.startDate._d
-            .toISOString()
-            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-        : null,
-      endDate: this.state.endDate
-        ? this.state.endDate._d
-            .toISOString()
-            .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-        : null
+      startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+      endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
     }
     this.props.fetchDataPayment(data);
   };
@@ -92,26 +70,14 @@ class Payment extends Component {
   /** ********** PREVIOUS PAGE PAYMENT PAGINATION ********** */
   getPreviousPage = () => {
     this.setState(prevState => {
-        if (prevState.page > 0) {
-          return {
-            page: prevState.page - 1
-          };
-        }
+        return prevState.page > 0 ? ({ page: prevState.page - 1 }) : null;
       }, () => {
         let data = {
           offset: this.state.page,
           size: this.state.optionFilter,
           login: this.props.data,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null
+          startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+          endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataPayment(data);
       }
@@ -120,25 +86,17 @@ class Payment extends Component {
 
   /** ********** NEXT PAGE PAYMENT PAGINATION ********** */
   getNextPage = () => {
+    //const { payload } = this.props.pricelist.data;
     this.setState(prevState => {
-        return {
-          page: prevState.page + 1
-        };
-      },() => {
+        //return prevState.page >= 0 && prevState.page < payload.page ? ({ page: prevState.page + 1 }) : null;
+        return prevState.page >= 0 ? ({ page: prevState.page + 1 }) : null;
+      }, () => {
         let data = {
           offset: this.state.page,
           size: this.state.optionFilter,
           login: this.props.data,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null
+          startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+          endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataPayment(data);
       }
@@ -147,30 +105,17 @@ class Payment extends Component {
 
   /** ********** LAST PAGE PAYMENT PAGINATION ********** */
   getLastPage = () => {
-    axios
-      .post(`${site}findLastCashFlows`, {
-        offset: this.state.offset,
-        size: this.state.optionFilter,
-        login: this.props.data,
-        startDate: this.state.startDate
-          ? this.state.startDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null,
-        endDate: this.state.endDate
-          ? this.state.endDate._d
-              .toISOString()
-              .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-          : null
-      })
-      .then(res => {
-        this.setState({
-          data: res.data,
-          offset: this.state.offset,
-          page: res.data.payload.page
-        });
-      })
-      .catch(error => console.log(error));
+    console.log('NOT PAGE FIELD')
+    //const { payload } = this.props.pricelist.data;
+    //this.setState({ page: payload.page });
+    //let data =  {
+    //    offset: this.state.offset,
+    //    size: this.state.optionFilter,
+    //    login: this.props.data,
+    //    startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+    //    endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
+    //  }
+    //  this.props.fetchDataLastPagePayment(data);
   };
 
   /** ********** REFRESH DATA FOR PAYMENT TABLE ********** */
@@ -193,16 +138,8 @@ class Payment extends Component {
           offset: this.state.page,
           size: this.state.optionFilter,
           login: this.props.data,
-          startDate: this.state.startDate
-            ? this.state.startDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null,
-          endDate: this.state.endDate
-            ? this.state.endDate._d
-                .toISOString()
-                .replace(/([^T]+)T([^\.]+).*/g, "$1 $2") // eslint-disable-line
-            : null
+          startDate: this.state.startDate ? this.state.startDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null, // eslint-disable-line
+          endDate: this.state.endDate ? this.state.endDate._d.toISOString().replace(/([^T]+)T([^\.]+).*/g, "$1 $2") : null // eslint-disable-line
         }
         this.props.fetchDataPayment(data);
       }
@@ -210,8 +147,8 @@ class Payment extends Component {
   };
   render() {
     const { payment } = this.props;
-    //console.log(payment);
-    if(payment.data.length === 0 || payment.isFetching) {
+    console.log(payment);
+    if(payment.data.length === 0) {
       return <Loader />
     }
     return (
@@ -374,5 +311,5 @@ const mapStateToProps = state => ({
 })
 export default connect(
    mapStateToProps,
-   { fetchDataPayment }
+   { fetchDataPayment, fetchDataLastPagePayment }
 )(Payment)

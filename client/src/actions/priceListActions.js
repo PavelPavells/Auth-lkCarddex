@@ -39,6 +39,22 @@ export const fetchDataPriceList = data => {
     }
 }
 
+/** ********** ACTION FOR FETCH LAST PAGE DATA PRICELIST ********** */
+export const fetchDataLastPagePriceList = data => {
+    return async dispatch => {
+        dispatch(fetchingDataRequest());
+        try {
+            await axios.post(`${site}getLastPage`, data)
+            .then(data => {
+                dispatch(fetchingDataSuccess(data));
+            })
+            .catch(error => { console.log(error) })
+        } catch (error) {
+            dispatch(fetchingDataFailure(error));
+        }
+    }
+}
+
 // export const fetchDataPriceListPagination = data => {
 //     return async dispatch => {
 //         dispatch(fetchingDataRequest());
