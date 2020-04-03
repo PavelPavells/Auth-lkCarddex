@@ -67,116 +67,93 @@ class Account extends Component {
         {/**-------------------------- НАСТРОЙКА УЧЕТНОЙ ЗАПИСИ ------------------------------ */}
         
           <h3>Основные настройки</h3>
-          <div className="main-content__main-settings-wrapper">
+          <div className="account-form">
             <p>Информация о Вашем профиле</p>
             <form
-              className="main-content__main-settings-form"
+              className="account-form__form"
               onSubmit={this.onSubmit}
             >
               <label>
-                <div className="auth-label">Наименование компании</div>
+                <div className="account-form__form-name">Изменить имя компании Вы можете здесь.</div>
                 <input
                   value={this.state.company_name}
                   onChange={this.onChange}
                   id="company_name"
                   type="company_name"
-                  className="auth-input main-content__forms"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить наименование компании Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">ИНН</div>
+                <div className="account-form__form-name">Изменить ИНН компании Вы можете здесь.</div>
                 <input
                   value={this.state.company_inn}
                   onChange={this.onChange}
                   id="company_inn"
                   type="company_inn"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить ИНН компании Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">Имя пользователя</div>
+                <div className="account-form__form-name">Изменить имя пользователя Вы можете здесь.</div>
                 <input
                   value={this.state.name}
                   onChange={this.onChange}
                   id="name"
                   type="name"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить имя пользователя Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">Пароль</div>
+                <div className="account-form__form-name">Изменить пароль Вы можете здесь.</div>
                 <input
                   value={this.state.pass}
                   onChange={this.onChange}
                   id="pass"
                   type="password"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить пароль Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">Email</div>
+                <div className="account-form__form-name">Изменить Email Вы можете здесь.</div>
                 <input
                   value={this.state.email}
                   onChange={this.onChange}
                   id="email"
                   type="email"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить Email Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">Контактное лицо</div>
+                <div className="account-form__form-name">Изменить контактное лицо Вы можете здесь.</div>
                 <input
                   value={this.state.contact_person}
                   onChange={this.onChange}
                   id="contact_person"
                   type="contact-person"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить контактное лицо Вы можете здесь.
-                </div>
               </label>
               <label>
-                <div className="auth-label">Телефон</div>
+                <div className="account-form__form-name">Изменить телефон Вы можете здесь.</div>
                 <input
                   value={this.state.company_phone}
                   onChange={this.onChange}
                   id="company_phone"
                   type="company_phone"
-                  className="auth-input"
+                  className="account-form__form-input"
                 />
-                <div className="auth-label__description">
-                  Изменить телефон Вы можете здесь.
-                </div>
               </label>
-              <button type="submit" className="auth-button">
+              <button type="submit" className="account-form__form-button">
                 Изменить настройки
               </button>
             </form>
           </div>
         
-
         {/**-------------------------- НАСТРОЙКА АВАТАРА ------------------------------ */}
 
-        
           {/*<h2>Изменить Аватар</h2>*/}
-          <div className="main-content__main-settings upload-photo">
-            <div className="main-content__wrapper-text">
+          <div className="account-photo">
+            <div className="account-photo__text">
               <h3>Здесь Вы можете поменять Ваш Аватар</h3>
               <p>
                 Вы можете загрузить фото <br /> с Вашего компютера или выбрать
@@ -191,18 +168,15 @@ class Account extends Component {
                 </a>
               </p>
             </div>
-            <div className="main-content__main-settings-wrapper">
-              <div className="main-content__change-photo"></div>
-              <div className="main-content__condition-wrapper">
-                <input type="file" name="file" id="file" className="inputfile" />
-                <label htmlFor="file">Выбрать фото</label>
-                <p>Максимальный размер 200Кб.</p>
-              </div>
+            <div className="account-photo__photo">
+              <input type="file" name="file" id="file" className="account-photo__inputfile" />
+              {/*<label htmlFor="file" className='account-photo__image'>Выбрать фото</label>
+              <p className='account-photo__file'>Максимальный размер 200Кб.</p>*/}
             </div>
           </div>
         {/**---------------------- СЕКЦИЯ ДОПОЛНИТЕЛЬНЫХ НАСТРОЕК ------------------- */}
-        <div className="main-content__main-settings">
-          <div className="main-content__main-settings-wrapper"></div>
+        <div className="account-more">
+          <div className="settings-more"></div>
         </div>
       </div>
     );
