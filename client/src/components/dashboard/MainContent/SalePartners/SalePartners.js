@@ -227,7 +227,7 @@ class SalePartners extends Component {
             >
               {salepartners.data.payload.recordSet.map((index, key) => (
                 <div
-                  key={index.pdiscount_history_uuid}
+                  key={key.index}
                   className="wrapper-column"
                 >
                   <div className="toggle-itype-name-sales" key={key.id}>

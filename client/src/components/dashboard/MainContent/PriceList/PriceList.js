@@ -158,10 +158,9 @@ class PriceList extends Component {
   //  this.setState({ openDoorControl: !this.state.openDoorControl })
   //}
   render() {
-    const { openElectronicControl, groupByCategories, page } = this.state;
+    const { openElectronicControl, groupByCategories } = this.state;
     const { pricelist } = this.props;
     console.log(pricelist);
-    console.log(page);
     if(pricelist.data.length === 0) {
       return <Loader />
     }
